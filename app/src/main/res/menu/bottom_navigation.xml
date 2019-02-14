@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_dashboard"
+        android:icon="@drawable/ic_view_dashboard"
+        android:title="Dashboard"/>
+
+    <item
+        android:id="@+id/nav_launch_schedule"
+        android:icon="@drawable/ic_calendar_clock"
+        android:title="Launch Schedule"/>
+
+    <item
+        android:id="@+id/nav_rockets"
+        android:icon="@drawable/ic_rocket"
+        android:title="Rockets"/>
+
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings"/>
+
+</menu>
