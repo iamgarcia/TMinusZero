@@ -18,9 +18,9 @@ import org.w3c.dom.Text;
 
 public class LaunchScheduleFragment extends Fragment {
 
-    private TabAdapter adapter;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private TabAdapter mTabAdapter;
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
 
     @Nullable
     @Override
@@ -31,14 +31,14 @@ public class LaunchScheduleFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        viewPager = getView().findViewById(R.id.viewPager);
-        tabLayout = getView().findViewById(R.id.tabLayout);
+        mViewPager = getView().findViewById(R.id.viewPager);
+        mTabLayout = getView().findViewById(R.id.tabLayout);
 
-        adapter = new TabAdapter(getFragmentManager());
-        adapter.addFragment(new FollowedLaunchesTabFragment(), "Followed Launches");
-        adapter.addFragment(new UpcomingLaunchesTabFragment(), "Upcoming Launches");
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
+        mTabAdapter = new TabAdapter(getFragmentManager());
+        mTabAdapter.addFragment(new FollowedLaunchesTabFragment(), "Followed Launches");
+        mTabAdapter.addFragment(new UpcomingLaunchesTabFragment(), "Upcoming Launches");
+        mViewPager.setAdapter(mTabAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
 
     }
 

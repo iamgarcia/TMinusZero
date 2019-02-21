@@ -12,8 +12,7 @@ import java.util.List;
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.LaunchViewHolder> {
 
     public static class LaunchViewHolder extends RecyclerView.ViewHolder {
-
-        CardView cv;
+        CardView mCardView;
         TextView launchSequence;
         TextView launchServiceProvider;
         TextView launchVehicle;
@@ -21,7 +20,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.LaunchViewHolder> 
 
         LaunchViewHolder(View itemView) {
             super(itemView);
-            cv = itemView.findViewById(R.id.cv);
+            mCardView = itemView.findViewById(R.id.cv);
             launchSequence = itemView.findViewById(R.id.launch_sequence);
             launchServiceProvider = itemView.findViewById(R.id.launch_service_provider);
             launchVehicle = itemView.findViewById(R.id.launch_vehicle);
@@ -30,10 +29,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.LaunchViewHolder> 
 
     }
 
-    List<Launch> launchList;
+    List<Launch> followedLaunchList;
 
-    RVAdapter(List<Launch> launchList){
-        this.launchList = launchList;
+    RVAdapter(List<Launch> followedLaunchList){
+        this.followedLaunchList = followedLaunchList;
     }
 
     @Override
@@ -43,24 +42,22 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.LaunchViewHolder> 
 
     @Override
     public LaunchViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
-        LaunchViewHolder lvh = new LaunchViewHolder(v); // lvh = launch view holder
-        return lvh;
+        View mView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
+        LaunchViewHolder mLaunchViewHolder = new LaunchViewHolder(mView);
+        return mLaunchViewHolder;
     }
 
     @Override
     public void onBindViewHolder(LaunchViewHolder launchViewHolder, int i) {
-
-        launchViewHolder.launchSequence.setText(launchList.get(i).launchSequence);
-        launchViewHolder.launchServiceProvider.setText(launchList.get(i).launchServiceProvider);
-        launchViewHolder.launchVehicle.setText(launchList.get(i).launchVehicle);
-        launchViewHolder.missionName.setText(launchList.get(i).missionName);
-
+        launchViewHolder.launchSequence.setText(String.valueOf(followedLaunchList.get(i).launchSequence)); // Parse int as string in order to display
+        launchViewHolder.launchServiceProvider.setText(followedLaunchList.get(i).launchServiceProvider);
+        launchViewHolder.launchVehicle.setText(followedLaunchList.get(i).launchVehicle);
+        launchViewHolder.missionName.setText(followedLaunchList.get(i).missionName);
     }
 
     @Override
     public int getItemCount() {
-        return launchList.size();
+        return followedLaunchList.size();
     }
 
 }
