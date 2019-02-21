@@ -13,7 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="15dp">
 
         <!-- Launch Sequence Text -->
         <TextView
@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/launch_service_provider"
             android:textSize="15sp"
-            android:layout_toRightOf="@id/launch_sequence"
-            android:layout_marginLeft="20sp"/>
+            android:layout_toEndOf="@id/launch_sequence"
+            android:layout_marginStart="20sp"/>
 
         <!-- Launch Service Provider and Launch Vehicle Separator Symbol Text -->
         <TextView
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:text="|"
             android:textSize="15sp"
-            android:layout_toRightOf="@id/launch_service_provider"
+            android:layout_toEndOf="@id/launch_service_provider"
             android:layout_marginLeft="5sp"
             android:layout_marginRight="5sp"/>
 
@@ -49,8 +49,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/launch_vehicle"
             android:textSize="15sp"
-            android:layout_toRightOf="@id/launch_service_provider"
-            android:layout_marginLeft="15sp"/>
+            android:layout_toEndOf="@id/launch_service_provider"
+            android:layout_marginStart="15sp"/>
 
         <!-- Mission Text -->
         <TextView
@@ -59,14 +59,15 @@
             android:id="@+id/mission_name"
             android:textSize="20sp"
             android:layout_below="@id/launch_service_provider"
-            android:layout_toRightOf="@id/launch_sequence"
-            android:layout_marginLeft="20sp"/>
+            android:layout_toEndOf="@id/launch_sequence"
+            android:layout_marginStart="20sp"/>
 
         <!-- More Information Arrow Button -->
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/arrow_btn"
+            android:contentDescription="More information button"
             android:background="#FFFFFF"
             android:id="@+id/more_info_btn"
             android:layout_alignParentEnd="true"
