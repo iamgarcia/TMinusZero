@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new DashboardFragment();
                     break;
                 case R.id.nav_launch_schedule:
-                    selectedFragment = new LaunchScheduleFragment();
+                    selectedFragment = new LaunchesFragment();
                     break;
                 case R.id.nav_rockets:
                     selectedFragment = new RocketsFragment();
