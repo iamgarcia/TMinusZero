@@ -34,17 +34,23 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             Fragment selectedFragment = null;
 
+            TextView textView = findViewById(R.id.textViewTitle);
+
             switch(menuItem.getItemId()) {
                 case R.id.nav_dashboard:
+                    textView.setText("Dashboard");
                     selectedFragment = new DashboardFragment();
                     break;
                 case R.id.nav_launch_schedule:
+                    textView.setText("Launches");
                     selectedFragment = new LaunchesFragment();
                     break;
                 case R.id.nav_rockets:
+                    textView.setText("Rockets");
                     selectedFragment = new RocketsFragment();
                     break;
                 case R.id.nav_settings:
+                    textView.setText("Settings");
                     selectedFragment = new SettingsFragment();
                     break;
             }

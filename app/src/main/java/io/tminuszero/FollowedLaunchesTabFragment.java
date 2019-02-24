@@ -41,6 +41,9 @@ public class FollowedLaunchesTabFragment extends Fragment {
 
     private void initializeData() {
         followedLaunchList = new ArrayList<>();
+
+        // Add a for loop that sets the attributes for each item in the Launch array.
+
         followedLaunchList.add(new Launch(1, "SpaceX", "Falcon 9 Block 5", "Nusantara Satu & GTO-1 "));
         followedLaunchList.add(new Launch(2, "Rocket Lab", "Electron", "DARPA R3D2"));
         followedLaunchList.add(new Launch(3, "SpaceX", "Falcon 9 Block 5", "SpX-DM1 "));
