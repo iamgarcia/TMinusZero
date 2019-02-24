@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/activityBackground">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
@@ -11,10 +13,10 @@
         android:layout_height="wrap_content"
         android:minHeight="?actionBarSize"
         app:tabGravity="fill"
-        app:tabTextColor="@android:color/white"
-        app:tabIndicatorColor="@android:color/white"
+        app:tabTextColor="@color/textBlack"
+        app:tabIndicatorColor="@color/azure"
         app:tabIndicatorHeight="4dp"
-        app:tabBackground="@color/colorPrimary"
+        app:tabBackground="@color/activityBackground"
         app:tabMode="fixed">
     </android.support.design.widget.TabLayout>
 
