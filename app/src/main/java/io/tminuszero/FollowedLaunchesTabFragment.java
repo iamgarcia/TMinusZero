@@ -35,21 +35,21 @@ public class FollowedLaunchesTabFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        initializeData();
+//        initializeData();
         initializeAdapter();
     }
 
-    private void initializeData() {
-        followedLaunchList = new ArrayList<>();
-
-        // Add a for loop that sets the attributes for each item in the Launch array.
-
-        followedLaunchList.add(new Launch(1, "SpaceX", "Falcon 9 Block 5", "Nusantara Satu & GTO-1 "));
-        followedLaunchList.add(new Launch(2, "Rocket Lab", "Electron", "DARPA R3D2"));
-        followedLaunchList.add(new Launch(3, "SpaceX", "Falcon 9 Block 5", "SpX-DM1 "));
-        followedLaunchList.add(new Launch(4, "SpaceX", "Falcon 9 Block 5", "RADARSAT Constellation"));
-        followedLaunchList.add(new Launch(5, "SpaceX", "Falcon Heavy", "Arabsat-6A"));
-    }
+//    private void initializeData() {
+//        followedLaunchList = new ArrayList<>();
+//
+//        // Add a for loop that sets the attributes for each item in the Launch array.
+//
+//        followedLaunchList.add(new Launch(1, "SpaceX", "Falcon 9 Block 5", "Nusantara Satu & GTO-1 "));
+//        followedLaunchList.add(new Launch(2, "Rocket Lab", "Electron", "DARPA R3D2"));
+//        followedLaunchList.add(new Launch(3, "SpaceX", "Falcon 9 Block 5", "SpX-DM1 "));
+//        followedLaunchList.add(new Launch(4, "SpaceX", "Falcon 9 Block 5", "RADARSAT Constellation"));
+//        followedLaunchList.add(new Launch(5, "SpaceX", "Falcon Heavy", "Arabsat-6A"));
+//    }
 
     private void initializeAdapter() {
         mRecyclerViewAdapter = new FollowedLaunchesRVAdapter(followedLaunchList);

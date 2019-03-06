@@ -10,6 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,25 +46,55 @@ public class UpcomingLaunchesTabFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        initializeData();
+        RequestQueue mQueue = Volley.newRequestQueue(getContext());
+
+        jsonParse();
+//        initializeData();
         initializeAdapter();
     }
 
-    private void initializeData() {
-        upcomingLaunchList = new ArrayList<>();
-        upcomingLaunchList.add(new Launch(1, "Russia", "Soyuz 2.1b/Fregat-M", "EgyptSat-A"));
-        upcomingLaunchList.add(new Launch(2, "SpaceX", "Falcon 9 Block 5", "Nusantara Satu & GTO-1 "));
-        upcomingLaunchList.add(new Launch(3, "Russia", "Soyuz STB/Fregat", "OneWeb F6"));
-        upcomingLaunchList.add(new Launch(4, "Rocket Lab", "Electron", "DARPA R3D2"));
-        upcomingLaunchList.add(new Launch(5, "Russia", "Soyuz 2.1a/Fregat", "Meridian-M 18"));
-        upcomingLaunchList.add(new Launch(6, "SpaceX", "Falcon 9 Block 5", "SpX-DM1 "));
-        upcomingLaunchList.add(new Launch(7, "SpaceX", "Falcon 9 Block 5", "RADARSAT Constellation"));
-        upcomingLaunchList.add(new Launch(8, "SpaceX", "Falcon Heavy", "Arabsat-6A"));
-    }
+//    private void initializeData() {
+//        upcomingLaunchList = new ArrayList<>();
+//        upcomingLaunchList.add(new Launch(1, "Russia", "Soyuz 2.1b/Fregat-M", "EgyptSat-A"));
+//        upcomingLaunchList.add(new Launch(2, "SpaceX", "Falcon 9 Block 5", "Nusantara Satu & GTO-1 "));
+//        upcomingLaunchList.add(new Launch(3, "Russia", "Soyuz STB/Fregat", "OneWeb F6"));
+//        upcomingLaunchList.add(new Launch(4, "Rocket Lab", "Electron", "DARPA R3D2"));
+//        upcomingLaunchList.add(new Launch(5, "Russia", "Soyuz 2.1a/Fregat", "Meridian-M 18"));
+//        upcomingLaunchList.add(new Launch(6, "SpaceX", "Falcon 9 Block 5", "SpX-DM1 "));
+//        upcomingLaunchList.add(new Launch(7, "SpaceX", "Falcon 9 Block 5", "RADARSAT Constellation"));
+//        upcomingLaunchList.add(new Launch(8, "SpaceX", "Falcon Heavy", "Arabsat-6A"));
+//    }
 
     private void initializeAdapter() {
         mRecyclerViewAdapter = new FollowedLaunchesRVAdapter(upcomingLaunchList);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
+    }
+
+    private void jsonParse() {
+        String url = "https://launchlibrary.net/1.4/launch/next/15";
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("launches");
+
+                    for(int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject launch = jsonArray.getJSONObject(i);
+
+                        upcomingLaunchList = new ArrayList<>();
+                        upcomingLaunchList.add(new Launch());
+                        upcomingLaunchList.get(i).getSequence();
+                    }
+                } catch(JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
     }
 
 }
