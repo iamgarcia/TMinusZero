@@ -5,7 +5,7 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="offWhite">#FCF5EF</color>
-    <color name="amber">#FEA735</color>
+        <color name="amber">#FEA735</color>
     <color name="tangerine">#FE7235</color>
     <color name="skyBlue">#00C3FF</color>
     <color name="azure">#0077FF</color>

@@ -4,66 +4,190 @@ import java.util.ArrayList;
 
 public class Launch {
 
-    static int instanceCounter;
-    int launchSequence;
-    int tbdDate;
-    int tbdTime;
-    int launchServiceProviderID;
-    ArrayList<Integer> rocketImageSizes = new ArrayList<Integer>();
+    /* Instantiate classes */
+    private LSP lsp = new LSP();
+    private Mission mission = new Mission();
+    private Rocket rocket = new Rocket();
+    private Location location = new Location();
 
-    String launchServiceProvider;
-    String launchVehicle;
-    String missionName;
-    String launchNET;
-    String holdReason;
-    String failReason;
-    String vidURL;
-    String rocketImageURL;
+    /* Launch Class variables */
+    static int nextSequence = 1;
+    private int sequence;
+    private int probability;
+    private int tbdTime;
+    private int tbdDate;
+    private String net;
+    private String holdReason;
+    private String failReason;
 
+    /* Launch Class Default Constructor */
     Launch() {
-        
-        instanceCounter++;
-        launchSequence = instanceCounter;
-        tbdDate = 1;
-        tbdTime = 1;
-        launchServiceProviderID = 0;
-
-        launchServiceProvider = null;
-        launchVehicle = null;
-        missionName = null;
-        launchNET = null;
-        holdReason = null;
-        failReason = null;
-        vidURL = null;
-        rocketImageURL = null;
-
+        sequence = nextSequence;
+        probability = -1;
+        tbdTime = -1;
+        tbdDate = -1;
+        net = "";
+        holdReason = "";
+        failReason = "";
+        nextSequence++;
     }
 
-    Launch(int launchSequence, String launchServiceProvider, String launchVehicle, String missionName) {
-
-        this.launchSequence = launchSequence;
-        this.launchServiceProvider = launchServiceProvider;
-        this.launchVehicle = launchVehicle;
-        this.missionName = missionName;
-
+    /* LSP Class Configuration */
+    public void configLSP(String name, String nameAbbrev, String countryCode, String wikiURL) {
+        lsp.setName(name);
+        lsp.setNameAbbrev(nameAbbrev);
+        lsp.setCountryCode(countryCode);
+        lsp.setWikiURL(wikiURL);
     }
 
-    void formatURLs(Launch obj) {
+    /* Mission Class Configuration */
+    public void configMission(String name, String description, String type) {
+        mission.setName(name);
+        mission.setDescription(description);
+        mission.setType(type);
+    }
 
-        String formattedURL;
+    /* Rocket Class Configuration */
+    public void configRocket(String name, String config, String family, String wikiURL, String imageURL, ArrayList<Integer> imageSizes) {
+        rocket.setName(name);
+        rocket.setConfig(config);
+        rocket.setFamily(family);
+        rocket.setWikiURL(wikiURL);
+        rocket.setImageURL(imageURL);
+        rocket.setImageSizes(imageSizes);
+    }
 
-        if(vidURL.contains("\\")) {
-            formattedURL = obj.vidURL;
-            formattedURL = formattedURL.replace("\\", "");
-            obj.vidURL = formattedURL;
-        }
+    /* Location Class Configuration */
+    public void configLocation(String padName, String wikiURL, String mapURL, String site, String countryCode, Long latitude, Long longitude) {
+        location.setPadName(padName);
+        location.setWikiURL(wikiURL);
+        location.setMapURL(mapURL);
+        location.setSite(site);
+        location.setCountryCode(countryCode);
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+    }
 
-        if(rocketImageURL.contains("\\")) {
-            formattedURL = obj.rocketImageURL;
-            formattedURL = formattedURL.replace("\\", "");
-            obj.rocketImageURL = formattedURL;
-        }
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
 
+    public void setProbability(int probability) {
+        this.probability = probability;
+    }
+
+    public void setTbdTime(int tbdTime) {
+        this.tbdTime = tbdTime;
+    }
+
+    public void setTbdDate(int tbdDate) {
+        this.tbdDate = tbdDate;
+    }
+
+    public void setNet(String net) {
+        this.net = net;
+    }
+
+    public void setHoldReason(String holdReason) {
+        this.holdReason = holdReason;
+    }
+
+    public void setFailReason(String failReason) {
+        this.failReason = failReason;
+    }
+
+    public int getSequence() {
+        return sequence;
+    }
+
+    public int getProbability() {
+        return probability;
+    }
+
+    public int getTbdTime() {
+        return tbdTime;
+    }
+
+    public int getTbdDate() {
+        return tbdDate;
+    }
+
+    public String getNet() {
+        return net;
+    }
+
+    public String getHoldReason() {
+        return holdReason;
+    }
+
+    public String getFailReason() {
+        return failReason;
     }
 
 }
+
+//public class Launch {
+//
+//    static int instanceCounter = 0;
+//    int launchSequence;
+//    int tbdDate;
+//    int tbdTime;
+//    int launchServiceProviderID;
+//    ArrayList<Integer> rocketImageSizes = new ArrayList<Integer>();
+//
+//    String launchServiceProvider;
+//    String launchVehicle;
+//    String missionName;
+//    String launchNET;
+//    String holdReason;
+//    String failReason;
+//    String vidURL;
+//    String rocketImageURL;
+//
+//    Launch() {
+//
+//        instanceCounter++;
+//        launchSequence = instanceCounter;
+//        tbdDate = 1;
+//        tbdTime = 1;
+//        launchServiceProviderID = 0;
+//
+//        launchServiceProvider = null;
+//        launchVehicle = null;
+//        missionName = null;
+//        launchNET = null;
+//        holdReason = null;
+//        failReason = null;
+//        vidURL = null;
+//        rocketImageURL = null;
+//
+//    }
+//
+//    Launch(int launchSequence, String launchServiceProvider, String launchVehicle, String missionName) {
+//
+//        this.launchSequence = launchSequence;
+//        this.launchServiceProvider = launchServiceProvider;
+//        this.launchVehicle = launchVehicle;
+//        this.missionName = missionName;
+//
+//    }
+//
+//    void formatURLs(Launch obj) {
+//
+//        String formattedURL;
+//
+//        if(vidURL.contains("\\")) {
+//            formattedURL = obj.vidURL;
+//            formattedURL = formattedURL.replace("\\", "");
+//            obj.vidURL = formattedURL;
+//        }
+//
+//        if(rocketImageURL.contains("\\")) {
+//            formattedURL = obj.rocketImageURL;
+//            formattedURL = formattedURL.replace("\\", "");
+//            obj.rocketImageURL = formattedURL;
+//        }
+//
+//    }
+//
+//}
