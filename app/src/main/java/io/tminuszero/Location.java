@@ -7,18 +7,18 @@ public class Location {
     private String mapURL;
     private String site;
     private String countryCode;
-    private Long latitude;
-    private Long longitude;
+    private String latitude;
+    private String longitude;
 
-    Location() {
-        padName = "";
-        wikiURL = "";
-        mapURL = "";
-        site = "";
-        countryCode = "";
-        latitude = null;
-        longitude = null;
-    }
+//    Location() {
+//        padName = "";
+//        wikiURL = "";
+//        mapURL = "";
+//        site = "";
+//        countryCode = "";
+//        latitude = null;
+//        longitude = null;
+//    }
 
     public void setPadName(String padName) {
         this.padName = padName;
@@ -40,11 +40,11 @@ public class Location {
         this.countryCode = countryCode;
     }
 
-    public void setLatitude(Long latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public void setLongitude(Long longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
@@ -68,11 +68,11 @@ public class Location {
         return countryCode;
     }
 
-    public Long getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public Long getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 

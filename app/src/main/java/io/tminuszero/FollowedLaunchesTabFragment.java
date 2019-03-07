@@ -6,11 +6,24 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FollowedLaunchesTabFragment extends Fragment {
@@ -19,6 +32,7 @@ public class FollowedLaunchesTabFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private FollowedLaunchesRVAdapter mRecyclerViewAdapter;
     private LinearLayoutManager mLinearLayoutManager;
+    private RequestQueue mQueue;
 
     @Nullable
     @Override
@@ -35,6 +49,9 @@ public class FollowedLaunchesTabFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
+        mQueue = Volley.newRequestQueue(getContext());
+
+        jsonParse();
 //        initializeData();
         initializeAdapter();
     }
@@ -54,6 +71,114 @@ public class FollowedLaunchesTabFragment extends Fragment {
     private void initializeAdapter() {
         mRecyclerViewAdapter = new FollowedLaunchesRVAdapter(followedLaunchList);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
+    }
+
+    private void jsonParse() {
+        String url = "https://launchlibrary.net/1.4/launch/next/15";
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+
+                    followedLaunchList = new ArrayList<>();
+
+                    // Outer
+                    JSONArray jsonArray = response.getJSONArray("launches");
+
+                    for(int i = 0; i < jsonArray.length(); i++) {
+
+                        followedLaunchList.add(new Launch());
+                        JSONObject launch = jsonArray.getJSONObject(i);
+
+                        JSONObject location = launch.getJSONObject("location");
+                        JSONArray missions = launch.getJSONArray("missions");
+                        JSONObject lsp = launch.getJSONObject("lsp");
+                        JSONObject rocket = launch.getJSONObject("rocket");
+
+                        JSONArray imageSizes = rocket.getJSONArray("imageSizes");
+                        JSONArray pads = location.getJSONArray("pads");
+                        JSONObject pad = pads.getJSONObject(0);
+                        JSONObject mission = missions.getJSONObject(0);
+
+                        // LSP attributes
+                        String lspName;
+                        String lspNameAbbrev;
+                        String lspCountryCode;
+                        String lspWikiURL;
+
+                        lspName = (lsp.getString("name") == null) ? "" : lsp.getString("name");
+                        lspNameAbbrev = (lsp.getString("abbrev") == null) ? "" : lsp.getString("abbrev");
+                        lspCountryCode = (lsp.getString("countryCode") == null) ? "" : lsp.getString("countryCode");
+                        lspWikiURL = (lsp.getString("wikiURL") == null) ? "" : lsp.getString("wikiURL");
+
+                        // Mission attributes
+                        // TODO: Make a condition for when there is no mission object
+                        String missionName;
+                        String missionDescription;
+                        String missionType;
+
+                        missionName = (mission.getString("name") == null) ? "" : mission.getString("name");
+                        missionDescription = (mission.getString("description") == null) ? "" : mission.getString("description");
+                        missionType = (mission.getString("typeName") == null) ? "" : mission.getString("typeName");
+
+                        // Rocket attributes
+                        String rocketName;
+                        String rocketConfig;
+                        String rocketFamily;
+                        String rocketWikiURL;
+                        String rocketImageURL;
+
+                        rocketName = (rocket.getString("name") == null) ? "" : rocket.getString("name");
+                        rocketConfig = (rocket.getString("configuration") == null) ? "" : rocket.getString("configuration");
+                        rocketFamily = (rocket.getString("familyname") == null) ? "" : rocket.getString("familyname");
+                        rocketWikiURL = (rocket.getString("wikiURL") == null) ? "" : rocket.getString("wikiURL");;
+                        rocketImageURL = (rocket.getString("imageURL") == null) ? "" : rocket.getString("imageURL");
+
+                        ArrayList<Integer> rocketImageSizes = new ArrayList<>();
+
+                        if(imageSizes.length() == 0) {
+                            Log.d("Critical", "imageSizes array is empty");
+                        } else {
+                            for(int j = 0; j < imageSizes.length(); j++) {
+                                rocketImageSizes.add(imageSizes.getInt(j));
+                            }
+                        }
+
+                        // Location attributes
+                        String locationSite;
+                        String locationCountryCode;
+                        String locationPadName;
+                        String locationWikiURL;
+                        String locationMapURL;
+                        String locationLatitude;
+                        String locationLongitude;
+
+                        locationSite = (location.getString("name") == null) ? "" : location.getString("name");
+                        locationCountryCode = (location.getString("countryCode") == null) ? "" : location.getString("countryCode");
+                        locationPadName = (pad.getString("name") == null) ? "" : pad.getString("name");
+                        locationWikiURL = (pad.getString("wikiURL") == null) ? "" : pad.getString("wikiURL");
+                        locationMapURL = (pad.getString("mapURL") == null) ? "" : pad.getString("mapURL");
+                        locationLatitude = (pad.getString("latitude") == null) ? "" : pad.getString("latitude");
+                        locationLongitude = (pad.getString("longitude") == null) ? "" : pad.getString("longitude");
+
+                        followedLaunchList.get(i).configLSP(lspName, lspNameAbbrev, lspCountryCode, lspWikiURL);
+                        followedLaunchList.get(i).configMission(missionName, missionDescription, missionType);
+                        followedLaunchList.get(i).configRocket(rocketName, rocketConfig, rocketFamily, rocketWikiURL, rocketImageURL, rocketImageSizes);
+                        followedLaunchList.get(i).configLocation(locationPadName, locationWikiURL, locationMapURL, locationSite, locationCountryCode, locationLatitude, locationLongitude);
+                    }
+                } catch(JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        mQueue.add(request);
+
     }
 
 }

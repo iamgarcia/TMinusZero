@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Launch {
 
     /* Instantiate classes */
-    private LSP lsp = new LSP();
-    private Mission mission = new Mission();
-    private Rocket rocket = new Rocket();
-    private Location location = new Location();
+    public LSP lsp = new LSP();
+    public Mission mission = new Mission();
+    public Rocket rocket = new Rocket();
+    public Location location = new Location();
 
     /* Launch Class variables */
     static int nextSequence = 1;
@@ -58,7 +58,7 @@ public class Launch {
     }
 
     /* Location Class Configuration */
-    public void configLocation(String padName, String wikiURL, String mapURL, String site, String countryCode, Long latitude, Long longitude) {
+    public void configLocation(String padName, String wikiURL, String mapURL, String site, String countryCode, String latitude, String longitude) {
         location.setPadName(padName);
         location.setWikiURL(wikiURL);
         location.setMapURL(mapURL);

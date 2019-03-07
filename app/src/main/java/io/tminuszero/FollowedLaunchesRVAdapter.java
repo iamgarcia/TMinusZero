@@ -49,15 +49,15 @@ public class FollowedLaunchesRVAdapter extends RecyclerView.Adapter<FollowedLaun
 
     @Override
     public void onBindViewHolder(LaunchViewHolder launchViewHolder, int i) {
-        launchViewHolder.launchSequence.setText(String.valueOf(followedLaunchList.get(i).launchSequence)); // Parse int as string in order to display
-        launchViewHolder.launchServiceProvider.setText(followedLaunchList.get(i).launchServiceProvider);
-        launchViewHolder.launchVehicle.setText(followedLaunchList.get(i).launchVehicle);
-        launchViewHolder.missionName.setText(followedLaunchList.get(i).missionName);
+        launchViewHolder.launchSequence.setText(String.valueOf(followedLaunchList.get(i).getSequence())); // Parse int as string in order to display
+        launchViewHolder.launchServiceProvider.setText(followedLaunchList.get(i).lsp.getName());
+        launchViewHolder.launchVehicle.setText(followedLaunchList.get(i).rocket.getName());
+        launchViewHolder.missionName.setText(followedLaunchList.get(i).mission.getName());
     }
 
     @Override
     public int getItemCount() {
-        return followedLaunchList.size();
+        return  followedLaunchList == null ? 0 : followedLaunchList.size();
     }
 
 }

@@ -49,15 +49,15 @@ public class UpcomingLaunchesRVAdapter extends RecyclerView.Adapter<UpcomingLaun
 
     @Override
     public void onBindViewHolder(LaunchViewHolder launchViewHolder, int i) {
-        launchViewHolder.launchSequence.setText(String.valueOf(upcomingLaunchList.get(i).launchSequence)); // Parse int as string in order to display
-        launchViewHolder.launchServiceProvider.setText(upcomingLaunchList.get(i).launchServiceProvider);
-        launchViewHolder.launchVehicle.setText(upcomingLaunchList.get(i).launchVehicle);
-        launchViewHolder.missionName.setText(upcomingLaunchList.get(i).missionName);
+        launchViewHolder.launchSequence.setText(String.valueOf(upcomingLaunchList.get(i).getSequence())); // Parse int as string in order to display
+        launchViewHolder.launchServiceProvider.setText(upcomingLaunchList.get(i).lsp.getName());
+        launchViewHolder.launchVehicle.setText(upcomingLaunchList.get(i).rocket.getName());
+        launchViewHolder.missionName.setText(upcomingLaunchList.get(i).mission.getName());
     }
 
     @Override
     public int getItemCount() {
-        return upcomingLaunchList.size();
+        return  upcomingLaunchList == null ? 0 : upcomingLaunchList.size();
     }
 
 }
