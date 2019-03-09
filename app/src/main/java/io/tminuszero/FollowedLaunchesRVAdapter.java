@@ -1,5 +1,6 @@
 package io.tminuszero;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,9 +8,44 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FollowedLaunchesRVAdapter extends RecyclerView.Adapter<FollowedLaunchesRVAdapter.LaunchViewHolder> {
+
+    private ArrayList<Launch> followedLaunchList;
+
+    FollowedLaunchesRVAdapter(ArrayList<Launch> followedLaunchList){
+        this.followedLaunchList = followedLaunchList;
+    }
+
+    @NonNull
+    @Override
+    public LaunchViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View mView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.launches_items, viewGroup, false);
+        return new LaunchViewHolder(mView);
+    }
+
+    @Override
+    public void onBindViewHolder(LaunchViewHolder launchViewHolder, int i) {
+        Launch launch = followedLaunchList.get(i);
+
+        launchViewHolder.launchSequence.setText(String.valueOf(launch.getSequence()));
+        launchViewHolder.launchServiceProvider.setText(launch.lsp.getName());
+        launchViewHolder.launchVehicle.setText(launch.rocket.getName());
+        launchViewHolder.missionName.setText(launch.mission.getName());
+
+//        launchViewHolder.launchSequence.setText(String.valueOf(followedLaunchList.get(i).getSequence())); // Parse int as string in order to display
+//        launchViewHolder.launchServiceProvider.setText(followedLaunchList.get(i).lsp.getName());
+//        launchViewHolder.launchVehicle.setText(followedLaunchList.get(i).rocket.getName());
+//        launchViewHolder.missionName.setText(followedLaunchList.get(i).mission.getName());
+    }
+
+    @Override
+    public int getItemCount() {
+        return  (followedLaunchList != null) ? followedLaunchList.size() : 0;
+    }
 
     public static class LaunchViewHolder extends RecyclerView.ViewHolder {
         CardView mCardView;
@@ -18,7 +54,7 @@ public class FollowedLaunchesRVAdapter extends RecyclerView.Adapter<FollowedLaun
         TextView launchVehicle;
         TextView missionName;
 
-        LaunchViewHolder(View itemView) {
+        public LaunchViewHolder(View itemView) {
             super(itemView);
             mCardView = itemView.findViewById(R.id.card_view_launches);
             launchSequence = itemView.findViewById(R.id.launch_sequence);
@@ -29,35 +65,9 @@ public class FollowedLaunchesRVAdapter extends RecyclerView.Adapter<FollowedLaun
 
     }
 
-    List<Launch> followedLaunchList;
-
-    FollowedLaunchesRVAdapter(List<Launch> followedLaunchList){
-        this.followedLaunchList = followedLaunchList;
-    }
-
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
-    }
-
-    @Override
-    public LaunchViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View mView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.launches_items, viewGroup, false);
-        LaunchViewHolder mLaunchViewHolder = new LaunchViewHolder(mView);
-        return mLaunchViewHolder;
-    }
-
-    @Override
-    public void onBindViewHolder(LaunchViewHolder launchViewHolder, int i) {
-        launchViewHolder.launchSequence.setText(String.valueOf(followedLaunchList.get(i).getSequence())); // Parse int as string in order to display
-        launchViewHolder.launchServiceProvider.setText(followedLaunchList.get(i).lsp.getName());
-        launchViewHolder.launchVehicle.setText(followedLaunchList.get(i).rocket.getName());
-        launchViewHolder.missionName.setText(followedLaunchList.get(i).mission.getName());
-    }
-
-    @Override
-    public int getItemCount() {
-        return  followedLaunchList == null ? 0 : followedLaunchList.size();
     }
 
 }

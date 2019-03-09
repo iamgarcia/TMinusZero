@@ -23,12 +23,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class FollowedLaunchesTabFragment extends Fragment {
 
-    private List<Launch> followedLaunchList;
+    private ArrayList<Launch> followedLaunchList;
     private RecyclerView mRecyclerView;
     private FollowedLaunchesRVAdapter mRecyclerViewAdapter;
     private LinearLayoutManager mLinearLayoutManager;
@@ -51,27 +49,51 @@ public class FollowedLaunchesTabFragment extends Fragment {
 
         mQueue = Volley.newRequestQueue(getContext());
 
-        jsonParse();
-//        initializeData();
+//        initializeLaunchList();
+        getJSON();
+        initializeData();
         initializeAdapter();
     }
 
-//    private void initializeData() {
-//        followedLaunchList = new ArrayList<>();
-//
-//        followedLaunchList.add(new Launch(1, "SpaceX", "Falcon 9 Block 5", "Nusantara Satu & GTO-1 "));
-//        followedLaunchList.add(new Launch(2, "Rocket Lab", "Electron", "DARPA R3D2"));
-//        followedLaunchList.add(new Launch(3, "SpaceX", "Falcon 9 Block 5", "SpX-DM1 "));
-//        followedLaunchList.add(new Launch(4, "SpaceX", "Falcon 9 Block 5", "RADARSAT Constellation"));
-//        followedLaunchList.add(new Launch(5, "SpaceX", "Falcon Heavy", "Arabsat-6A"));
-//    }
+    private void getJSON() {
+
+        String url = "https://launchlibrary.net/1.4/launch/next/10";
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    int count = response.getInt("count");
+                    // TODO: Make a global variable class so I can store data to it and that use across the app.
+                } catch(JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        mQueue.add(request);
+    }
+
+    private void initializeData() {
+        followedLaunchList = new ArrayList<>();
+
+        for(int j = 0; j < 10; j++) {
+            Log.d("RUN", Integer.toString(j));
+            followedLaunchList.add(new Launch());
+        }
+
+    }
 
     private void initializeAdapter() {
         mRecyclerViewAdapter = new FollowedLaunchesRVAdapter(followedLaunchList);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
     }
 
-    private void jsonParse() {
+    private void initializeLaunchList() {
         String url = "https://launchlibrary.net/1.4/launch/next/10";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
