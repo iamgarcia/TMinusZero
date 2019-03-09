@@ -47,22 +47,109 @@ public class FollowedLaunchesTabFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        mQueue = Volley.newRequestQueue(getContext());
+        followedLaunchList = new ArrayList<>();
 
-//        initializeLaunchList();
-        getJSON();
-        initializeData();
-        initializeAdapter();
+        mQueue = Volley.newRequestQueue(getContext());
+        parseJSON();
     }
 
-    private void getJSON() {
+    private void parseJSON() {
 
         String url = "https://launchlibrary.net/1.4/launch/next/10";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    int count = response.getInt("count");
+                    int itemCount = response.getInt("count");
+                    JSONArray jsonArray = response.getJSONArray("launches");
+
+                    for(int i = 0; i < itemCount; i++) {
+                        followedLaunchList.add(new Launch());
+
+                        JSONObject launch = jsonArray.getJSONObject(i);
+
+                        JSONObject location = launch.getJSONObject("location");
+                        JSONArray missions = launch.getJSONArray("missions");
+                        JSONObject lsp = launch.getJSONObject("lsp");
+                        JSONObject rocket = launch.getJSONObject("rocket");
+
+                        JSONArray imageSizes = rocket.getJSONArray("imageSizes");
+                        JSONArray pads = location.getJSONArray("pads");
+                        JSONObject pad = pads.getJSONObject(0);
+
+                        // Mission attributes
+                        JSONObject mission;
+                        String missionName = "";
+                        String missionDescription = "";
+                        String missionType = "";
+                        if(missions.length() > 0) {
+                            mission = missions.getJSONObject(0);
+
+                            missionName = (mission.getString("name") == null) ? "" : mission.getString("name");
+                            missionDescription = (mission.getString("description") == null) ? "" : mission.getString("description");
+                            missionType = (mission.getString("typeName") == null) ? "" : mission.getString("typeName");
+                        }
+
+                        // LSP attributes
+                        String lspName;
+                        String lspNameAbbrev;
+                        String lspCountryCode;
+                        String lspWikiURL;
+
+                        lspName = (lsp.getString("name") == null) ? "" : lsp.getString("name");
+                        lspNameAbbrev = (lsp.getString("abbrev") == null) ? "" : lsp.getString("abbrev");
+                        lspCountryCode = (lsp.getString("countryCode") == null) ? "" : lsp.getString("countryCode");
+                        lspWikiURL = (lsp.getString("wikiURL") == null) ? "" : lsp.getString("wikiURL");
+
+                        // Rocket attributes
+                        String rocketName;
+                        String rocketConfig;
+                        String rocketFamily;
+                        String rocketWikiURL;
+                        String rocketImageURL;
+
+                        rocketName = (rocket.getString("name") == null) ? "" : rocket.getString("name");
+                        rocketConfig = (rocket.getString("configuration") == null) ? "" : rocket.getString("configuration");
+                        rocketFamily = (rocket.getString("familyname") == null) ? "" : rocket.getString("familyname");
+                        rocketWikiURL = (rocket.getString("wikiURL") == null) ? "" : rocket.getString("wikiURL");;
+                        rocketImageURL = (rocket.getString("imageURL") == null) ? "" : rocket.getString("imageURL");
+
+                        ArrayList<Integer> rocketImageSizes = new ArrayList<>();
+
+                        if(imageSizes.length() == 0) {
+                            Log.d("Critical", "imageSizes array is empty");
+                        } else {
+                            for(int j = 0; j < imageSizes.length(); j++) {
+                                rocketImageSizes.add(imageSizes.getInt(j));
+                            }
+                        }
+
+                        // Location attributes
+                        String locationSite;
+                        String locationCountryCode;
+                        String locationPadName;
+                        String locationWikiURL;
+                        String locationMapURL;
+                        String locationLatitude;
+                        String locationLongitude;
+
+                        locationSite = (location.getString("name") == null) ? "" : location.getString("name");
+                        locationCountryCode = (location.getString("countryCode") == null) ? "" : location.getString("countryCode");
+                        locationPadName = (pad.getString("name") == null) ? "" : pad.getString("name");
+                        locationWikiURL = (pad.getString("wikiURL") == null) ? "" : pad.getString("wikiURL");
+                        locationMapURL = (pad.getString("mapURL") == null) ? "" : pad.getString("mapURL");
+                        locationLatitude = (pad.getString("latitude") == null) ? "" : pad.getString("latitude");
+                        locationLongitude = (pad.getString("longitude") == null) ? "" : pad.getString("longitude");
+
+                        followedLaunchList.get(i).configLSP(lspName, lspNameAbbrev, lspCountryCode, lspWikiURL);
+                        followedLaunchList.get(i).configMission(missionName, missionDescription, missionType);
+                        followedLaunchList.get(i).configRocket(rocketName, rocketConfig, rocketFamily, rocketWikiURL, rocketImageURL, rocketImageSizes);
+                        followedLaunchList.get(i).configLocation(locationPadName, locationWikiURL, locationMapURL, locationSite, locationCountryCode, locationLatitude, locationLongitude);
+                    }
+
+                    mRecyclerViewAdapter = new FollowedLaunchesRVAdapter(followedLaunchList);
+                    mRecyclerView.setAdapter(mRecyclerViewAdapter);
+
                     // TODO: Make a global variable class so I can store data to it and that use across the app.
                 } catch(JSONException e) {
                     e.printStackTrace();
@@ -76,21 +163,7 @@ public class FollowedLaunchesTabFragment extends Fragment {
         });
 
         mQueue.add(request);
-    }
 
-    private void initializeData() {
-        followedLaunchList = new ArrayList<>();
-
-        for(int j = 0; j < 10; j++) {
-            Log.d("RUN", Integer.toString(j));
-            followedLaunchList.add(new Launch());
-        }
-
-    }
-
-    private void initializeAdapter() {
-        mRecyclerViewAdapter = new FollowedLaunchesRVAdapter(followedLaunchList);
-        mRecyclerView.setAdapter(mRecyclerViewAdapter);
     }
 
     private void initializeLaunchList() {

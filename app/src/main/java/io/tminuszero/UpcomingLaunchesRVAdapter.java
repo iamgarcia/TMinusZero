@@ -22,7 +22,7 @@ public class UpcomingLaunchesRVAdapter extends RecyclerView.Adapter<UpcomingLaun
             super(itemView);
             mCardView = itemView.findViewById(R.id.card_view_launches);
             launchSequence = itemView.findViewById(R.id.launch_sequence);
-            launchServiceProvider = itemView.findViewById(R.id.launch_service_provider);
+//            launchServiceProvider = itemView.findViewById(R.id.launch_service_provider);
             launchVehicle = itemView.findViewById(R.id.launch_vehicle);
             missionName = itemView.findViewById(R.id.mission_name);
         }

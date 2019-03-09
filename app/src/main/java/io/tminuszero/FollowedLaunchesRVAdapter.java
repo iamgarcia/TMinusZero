@@ -32,14 +32,9 @@ public class FollowedLaunchesRVAdapter extends RecyclerView.Adapter<FollowedLaun
         Launch launch = followedLaunchList.get(i);
 
         launchViewHolder.launchSequence.setText(String.valueOf(launch.getSequence()));
-        launchViewHolder.launchServiceProvider.setText(launch.lsp.getName());
+//        launchViewHolder.launchServiceProvider.setText(launch.lsp.getName());
         launchViewHolder.launchVehicle.setText(launch.rocket.getName());
         launchViewHolder.missionName.setText(launch.mission.getName());
-
-//        launchViewHolder.launchSequence.setText(String.valueOf(followedLaunchList.get(i).getSequence())); // Parse int as string in order to display
-//        launchViewHolder.launchServiceProvider.setText(followedLaunchList.get(i).lsp.getName());
-//        launchViewHolder.launchVehicle.setText(followedLaunchList.get(i).rocket.getName());
-//        launchViewHolder.missionName.setText(followedLaunchList.get(i).mission.getName());
     }
 
     @Override
@@ -58,7 +53,7 @@ public class FollowedLaunchesRVAdapter extends RecyclerView.Adapter<FollowedLaun
             super(itemView);
             mCardView = itemView.findViewById(R.id.card_view_launches);
             launchSequence = itemView.findViewById(R.id.launch_sequence);
-            launchServiceProvider = itemView.findViewById(R.id.launch_service_provider);
+//            launchServiceProvider = itemView.findViewById(R.id.launch_service_provider);
             launchVehicle = itemView.findViewById(R.id.launch_vehicle);
             missionName = itemView.findViewById(R.id.mission_name);
         }
