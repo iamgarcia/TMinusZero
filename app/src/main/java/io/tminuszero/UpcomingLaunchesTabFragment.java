@@ -98,7 +98,19 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         JSONArray imageSizes = rocket.getJSONArray("imageSizes");
                         JSONArray pads = location.getJSONArray("pads");
                         JSONObject pad = pads.getJSONObject(0);
-                        JSONObject mission = missions.getJSONObject(0);
+
+                        // Mission attributes
+                        JSONObject mission;
+                        String missionName = "";
+                        String missionDescription = "";
+                        String missionType = "";
+                        if(missions.length() > 0) {
+                            mission = missions.getJSONObject(0);
+
+                            missionName = (mission.getString("name") == null) ? "" : mission.getString("name");
+                            missionDescription = (mission.getString("description") == null) ? "" : mission.getString("description");
+                            missionType = (mission.getString("typeName") == null) ? "" : mission.getString("typeName");
+                        }
 
                         // LSP attributes
                         String lspName;
@@ -110,16 +122,6 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         lspNameAbbrev = (lsp.getString("abbrev") == null) ? "" : lsp.getString("abbrev");
                         lspCountryCode = (lsp.getString("countryCode") == null) ? "" : lsp.getString("countryCode");
                         lspWikiURL = (lsp.getString("wikiURL") == null) ? "" : lsp.getString("wikiURL");
-
-                        // Mission attributes
-                        // TODO: Make a condition for when there is no mission object
-                        String missionName;
-                        String missionDescription;
-                        String missionType;
-
-                        missionName = (mission.getString("name") == null) ? "" : mission.getString("name");
-                        missionDescription = (mission.getString("description") == null) ? "" : mission.getString("description");
-                        missionType = (mission.getString("typeName") == null) ? "" : mission.getString("typeName");
 
                         // Rocket attributes
                         String rocketName;

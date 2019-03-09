@@ -7,12 +7,12 @@ public class LSP {
     private String countryCode;
     private String wikiURL;
 
-//    LSP() {
-//        name = "";
-//        nameAbbrev = "";
-//        countryCode = "";
-//        wikiURL = "";
-//    }
+    LSP() {
+        name = "";
+        nameAbbrev = "";
+        countryCode = "";
+        wikiURL = "";
+    }
 
     public void setName(String name) {
         this.name = name;

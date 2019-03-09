@@ -59,8 +59,6 @@ public class FollowedLaunchesTabFragment extends Fragment {
 //    private void initializeData() {
 //        followedLaunchList = new ArrayList<>();
 //
-//        // Add a for loop that sets the attributes for each item in the Launch array.
-//
 //        followedLaunchList.add(new Launch(1, "SpaceX", "Falcon 9 Block 5", "Nusantara Satu & GTO-1 "));
 //        followedLaunchList.add(new Launch(2, "Rocket Lab", "Electron", "DARPA R3D2"));
 //        followedLaunchList.add(new Launch(3, "SpaceX", "Falcon 9 Block 5", "SpX-DM1 "));
@@ -74,7 +72,7 @@ public class FollowedLaunchesTabFragment extends Fragment {
     }
 
     private void jsonParse() {
-        String url = "https://launchlibrary.net/1.4/launch/next/15";
+        String url = "https://launchlibrary.net/1.4/launch/next/10";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -85,7 +83,9 @@ public class FollowedLaunchesTabFragment extends Fragment {
                     // Outer
                     JSONArray jsonArray = response.getJSONArray("launches");
 
-                    for(int i = 0; i < jsonArray.length(); i++) {
+                    int count = response.getInt("count");
+
+                    for(int i = 0; i < count; i++) {
 
                         followedLaunchList.add(new Launch());
                         JSONObject launch = jsonArray.getJSONObject(i);
@@ -98,7 +98,19 @@ public class FollowedLaunchesTabFragment extends Fragment {
                         JSONArray imageSizes = rocket.getJSONArray("imageSizes");
                         JSONArray pads = location.getJSONArray("pads");
                         JSONObject pad = pads.getJSONObject(0);
-                        JSONObject mission = missions.getJSONObject(0);
+
+                        // Mission attributes
+                        JSONObject mission;
+                        String missionName = "";
+                        String missionDescription = "";
+                        String missionType = "";
+                        if(missions.length() > 0) {
+                            mission = missions.getJSONObject(0);
+
+                            missionName = (mission.getString("name") == null) ? "" : mission.getString("name");
+                            missionDescription = (mission.getString("description") == null) ? "" : mission.getString("description");
+                            missionType = (mission.getString("typeName") == null) ? "" : mission.getString("typeName");
+                        }
 
                         // LSP attributes
                         String lspName;
@@ -110,16 +122,6 @@ public class FollowedLaunchesTabFragment extends Fragment {
                         lspNameAbbrev = (lsp.getString("abbrev") == null) ? "" : lsp.getString("abbrev");
                         lspCountryCode = (lsp.getString("countryCode") == null) ? "" : lsp.getString("countryCode");
                         lspWikiURL = (lsp.getString("wikiURL") == null) ? "" : lsp.getString("wikiURL");
-
-                        // Mission attributes
-                        // TODO: Make a condition for when there is no mission object
-                        String missionName;
-                        String missionDescription;
-                        String missionType;
-
-                        missionName = (mission.getString("name") == null) ? "" : mission.getString("name");
-                        missionDescription = (mission.getString("description") == null) ? "" : mission.getString("description");
-                        missionType = (mission.getString("typeName") == null) ? "" : mission.getString("typeName");
 
                         // Rocket attributes
                         String rocketName;

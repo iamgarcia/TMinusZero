@@ -11,13 +11,13 @@ public class Rocket {
     private String imageURL;
     private ArrayList<Integer> imageSizes = new ArrayList<>();
 
-//    Rocket() {
-//        name = "";
-//        config = "";
-//        family = "";
-//        wikiURL = "";
-//        imageURL = "";
-//    }
+    Rocket() {
+        name = "";
+        config = "";
+        family = "";
+        wikiURL = "";
+        imageURL = "";
+    }
 
     public void setName(String name) {
         this.name = name;

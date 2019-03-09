@@ -10,15 +10,15 @@ public class Location {
     private String latitude;
     private String longitude;
 
-//    Location() {
-//        padName = "";
-//        wikiURL = "";
-//        mapURL = "";
-//        site = "";
-//        countryCode = "";
-//        latitude = null;
-//        longitude = null;
-//    }
+    Location() {
+        padName = "";
+        wikiURL = "";
+        mapURL = "";
+        site = "";
+        countryCode = "";
+        latitude = null;
+        longitude = null;
+    }
 
     public void setPadName(String padName) {
         this.padName = padName;
