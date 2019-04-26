@@ -23,12 +23,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class UpcomingLaunchesTabFragment extends Fragment {
 
-    private List<Launch> upcomingLaunchList;
+    private ArrayList<Launch> upcomingLaunchList;
     private RecyclerView mRecyclerView;
     private UpcomingLaunchesRVAdapter mRecyclerViewAdapter;
     private LinearLayoutManager mLinearLayoutManager;
@@ -49,45 +47,25 @@ public class UpcomingLaunchesTabFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
+        upcomingLaunchList = new ArrayList<>();
+
         mQueue = Volley.newRequestQueue(getContext());
-
-        jsonParse();
-//        initializeData();
-        initializeAdapter();
+        parseJSON();
     }
 
-//    private void initializeData() {
-//        upcomingLaunchList = new ArrayList<>();
-//        upcomingLaunchList.add(new Launch(1, "Russia", "Soyuz 2.1b/Fregat-M", "EgyptSat-A"));
-//        upcomingLaunchList.add(new Launch(2, "SpaceX", "Falcon 9 Block 5", "Nusantara Satu & GTO-1 "));
-//        upcomingLaunchList.add(new Launch(3, "Russia", "Soyuz STB/Fregat", "OneWeb F6"));
-//        upcomingLaunchList.add(new Launch(4, "Rocket Lab", "Electron", "DARPA R3D2"));
-//        upcomingLaunchList.add(new Launch(5, "Russia", "Soyuz 2.1a/Fregat", "Meridian-M 18"));
-//        upcomingLaunchList.add(new Launch(6, "SpaceX", "Falcon 9 Block 5", "SpX-DM1 "));
-//        upcomingLaunchList.add(new Launch(7, "SpaceX", "Falcon 9 Block 5", "RADARSAT Constellation"));
-//        upcomingLaunchList.add(new Launch(8, "SpaceX", "Falcon Heavy", "Arabsat-6A"));
-//    }
+    private void parseJSON() {
 
-    private void initializeAdapter() {
-        mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);
-        mRecyclerView.setAdapter(mRecyclerViewAdapter);
-    }
-
-    private void jsonParse() {
-        String url = "https://launchlibrary.net/1.4/launch/next/15";
+        String url = "https://launchlibrary.net/1.4/launch/next/10";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-
-                    upcomingLaunchList = new ArrayList<>();
-
-                    // Outer
+                    int itemCount = response.getInt("count");
                     JSONArray jsonArray = response.getJSONArray("launches");
 
-                    for(int i = 0; i < jsonArray.length(); i++) {
-
+                    for(int i = 0; i < itemCount; i++) {
                         upcomingLaunchList.add(new Launch());
+
                         JSONObject launch = jsonArray.getJSONObject(i);
 
                         JSONObject location = launch.getJSONObject("location");
@@ -168,6 +146,11 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         upcomingLaunchList.get(i).configRocket(rocketName, rocketConfig, rocketFamily, rocketWikiURL, rocketImageURL, rocketImageSizes);
                         upcomingLaunchList.get(i).configLocation(locationPadName, locationWikiURL, locationMapURL, locationSite, locationCountryCode, locationLatitude, locationLongitude);
                     }
+
+                    mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);
+                    mRecyclerView.setAdapter(mRecyclerViewAdapter);
+
+                    // TODO: Make a global variable class so I can store data to it and that use across the app.
                 } catch(JSONException e) {
                     e.printStackTrace();
                 }

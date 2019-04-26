@@ -4,12 +4,14 @@
     <color name="colorPrimaryDark">#630000</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="offWhite">#FCF5EF</color>
-        <color name="amber">#FEA735</color>
+    <color name="bottomNavigationBar">#FFFFFF</color>
+    <color name="notificationBar">#F0F0F0</color>
+    <color name="amber">#FEA735</color>
     <color name="tangerine">#FE7235</color>
     <color name="skyBlue">#00C3FF</color>
     <color name="azure">#0077FF</color>
+    <color name="offWhite">#000000</color>
     <color name="textBlack">#000000</color>
     <color name="textWhite">#FFFFFF</color>
-    <color name="activityBackground">#FAFAFA</color>
+    <color name="activityBackground">#FFFFFF</color>
 </resources>
