@@ -58,14 +58,13 @@ public class Launch {
     }
 
     /* Location Class Configuration */
-    public void configLocation(String padName, String wikiURL, String mapURL, String site, String countryCode, String latitude, String longitude) {
-        location.setPadName(padName);
-        location.setWikiURL(wikiURL);
-        location.setMapURL(mapURL);
-        location.setSite(site);
+    public void configLocation(String name, String countryCode, String padName, String wikiURL, String mapURL, String latitude, String longitude) {
+
+        location.setName(name);
         location.setCountryCode(countryCode);
-        location.setLatitude(latitude);
-        location.setLongitude(longitude);
+
+        location.configPad(padName, wikiURL, mapURL, latitude, longitude);
+
     }
 
     public void setSequence(int sequence) {
