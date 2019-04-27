@@ -1,4 +1,4 @@
-package io.tminuszero;
+package io.tminuszero.api;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class Launch {
     private String failReason;
 
     /* Launch Class Default Constructor */
-    Launch() {
+    public Launch() {
         sequence = nextSequence;
         probability = -1;
         tbdTime = -1;
