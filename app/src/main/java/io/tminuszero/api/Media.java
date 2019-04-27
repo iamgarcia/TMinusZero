@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Media {
 
     private String hashtag;
-    private ArrayList<String> lspLinks = new ArrayList<>(); // LSP social media links
-    private ArrayList<String> videoLinks = new ArrayList<>();
+    private ArrayList<String> infoURLs = new ArrayList<>(); // LSP social media links
+    private ArrayList<String> vidURLs = new ArrayList<>();
 
     Media() {
         this.hashtag = "";
@@ -16,15 +16,15 @@ public class Media {
         this.hashtag = hashtag;
     }
 
-    public void setLspLinks(ArrayList<String> lspLinks) {
-        for(int i = 0; i < lspLinks.size(); i++) {
-            this.lspLinks.add(lspLinks.get(i));
+    public void setInfoURLs(ArrayList<String> infoURLs) {
+        for(int i = 0; i < infoURLs.size(); i++) {
+            this.infoURLs.add(infoURLs.get(i));
         }
     }
 
-    public void setVideoLinks(ArrayList<String> videoLinks) {
-        for(int i = 0; i < videoLinks.size(); i++) {
-            this.videoLinks.add(videoLinks.get(i));
+    public void setVidURLs(ArrayList<String> vidURLs) {
+        for(int i = 0; i < vidURLs.size(); i++) {
+            this.vidURLs.add(vidURLs.get(i));
         }
     }
 
@@ -32,12 +32,12 @@ public class Media {
         return hashtag;
     }
 
-    public ArrayList<String> getLspLinks() {
-        return lspLinks;
+    public ArrayList<String> getInfoURLs() {
+        return infoURLs;
     }
 
-    public  ArrayList<String> getVideoLinks() {
-        return videoLinks;
+    public  ArrayList<String> getVidURLs() {
+        return vidURLs;
     }
 
 }
