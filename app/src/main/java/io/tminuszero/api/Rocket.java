@@ -1,4 +1,4 @@
-package io.tminuszero;
+package io.tminuszero.api;
 
 import java.util.ArrayList;
 

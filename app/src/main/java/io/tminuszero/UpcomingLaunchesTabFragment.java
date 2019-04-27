@@ -24,6 +24,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import io.tminuszero.api.Launch;
+
 public class UpcomingLaunchesTabFragment extends Fragment {
 
     private ArrayList<Launch> upcomingLaunchList;
