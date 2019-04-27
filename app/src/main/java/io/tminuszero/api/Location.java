@@ -2,78 +2,31 @@ package io.tminuszero.api;
 
 public class Location {
 
-    private String padName;
-    private String wikiURL;
-    private String mapURL;
-    private String site;
+    private String name;
     private String countryCode;
-    private String latitude;
-    private String longitude;
+
+    public Pads pads = new Pads();
+
 
     Location() {
-        padName = "";
-        wikiURL = "";
-        mapURL = "";
-        site = "";
-        countryCode = "";
-        latitude = null;
-        longitude = null;
+        this.name = " ";
+        this.countryCode = " ";
     }
 
-    public void setPadName(String padName) {
-        this.padName = padName;
+    /* Pads configuration */
+    public void configPad(String name, String wikiURL, String mapURL, String latitude, String longitude) {
+        pads.setName(name);
+        pads.setWikiURL(wikiURL);
+        pads.setMapURL(mapURL);
+        pads.setLatitude(latitude);
+        pads.setLongitude(longitude);
     }
 
-    public void setWikiURL(String wikiURL) {
-        this.wikiURL = wikiURL;
-    }
+    public void setName(String name) { this.name = name; }
 
-    public void setMapURL(String mapURL) {
-        this.mapURL = mapURL;
-    }
+    public void setCountryCode(String countryCode) { this.countryCode = countryCode; }
 
-    public void setSite(String site) {
-        this.site = site;
-    }
+    public String getName() { return name; }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getPadName() {
-        return padName;
-    }
-
-    public String getWikiURL() {
-        return wikiURL;
-    }
-
-    public String getMapURL() {
-        return mapURL;
-    }
-
-    public String getSite() {
-        return site;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
+    public String getCountryCode() { return countryCode; }
 }
