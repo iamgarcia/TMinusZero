@@ -26,6 +26,8 @@ import java.util.ArrayList;
 
 import io.tminuszero.api.Launch;
 
+import static android.content.ContentValues.TAG;
+
 public class UpcomingLaunchesTabFragment extends Fragment {
 
     private ArrayList<Launch> upcomingLaunchList;
@@ -127,26 +129,27 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         }
 
                         // Location attributes
-                        String locationSite;
+                        String locationName;
                         String locationCountryCode;
-                        String locationPadName;
-                        String locationWikiURL;
-                        String locationMapURL;
-                        String locationLatitude;
-                        String locationLongitude;
 
-                        locationSite = (location.getString("name") == null) ? "" : location.getString("name");
+                        String padsName;
+                        String padsWikiURL;
+                        String padsMapURL;
+                        String padsLatitude;
+                        String padsLongitude;
+
+                        locationName = (location.getString("name") == null) ? "" : location.getString("name");
                         locationCountryCode = (location.getString("countryCode") == null) ? "" : location.getString("countryCode");
-                        locationPadName = (pad.getString("name") == null) ? "" : pad.getString("name");
-                        locationWikiURL = (pad.getString("wikiURL") == null) ? "" : pad.getString("wikiURL");
-                        locationMapURL = (pad.getString("mapURL") == null) ? "" : pad.getString("mapURL");
-                        locationLatitude = (pad.getString("latitude") == null) ? "" : pad.getString("latitude");
-                        locationLongitude = (pad.getString("longitude") == null) ? "" : pad.getString("longitude");
+                        padsName = (pad.getString("name") == null) ? "" : pad.getString("name");
+                        padsWikiURL = (pad.getString("wikiURL") == null) ? "" : pad.getString("wikiURL");
+                        padsMapURL = (pad.getString("mapURL") == null) ? "" : pad.getString("mapURL");
+                        padsLatitude = (pad.getString("latitude") == null) ? "" : pad.getString("latitude");
+                        padsLongitude = (pad.getString("longitude") == null) ? "" : pad.getString("longitude");
 
                         upcomingLaunchList.get(i).configLSP(lspName, lspNameAbbrev, lspCountryCode, lspWikiURL);
                         upcomingLaunchList.get(i).configMission(missionName, missionDescription, missionType);
                         upcomingLaunchList.get(i).configRocket(rocketName, rocketConfig, rocketFamily, rocketWikiURL, rocketImageURL, rocketImageSizes);
-                        upcomingLaunchList.get(i).configLocation(locationPadName, locationWikiURL, locationMapURL, locationSite, locationCountryCode, locationLatitude, locationLongitude);
+                        upcomingLaunchList.get(i).configLocation(locationName, locationCountryCode, padsName, padsWikiURL, padsMapURL, padsLatitude, padsLongitude);
                     }
 
                     mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);
