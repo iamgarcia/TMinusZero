@@ -16,7 +16,7 @@ public final class DataBaseContract {
         // TODO: Initialize the correct values
 
         // Table for launch
-        public static final String TABLE_NAME = "launch";
+        public static final String LAUNCH_TABLE = "launch";
         public static final String COLUMN_NAME_LAUNCH = "name";
         public static final String COLUMN_NET_LAUNCH = "net";
 
