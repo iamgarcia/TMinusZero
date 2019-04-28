@@ -173,16 +173,16 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         upcomingLaunchList.get(i).configLocation(locationName, locationCountryCode, padsName, padsWikiURL, padsMapURL, padsLatitude, padsLongitude);
 
                         // TODO: Make a global variable class so I can store data to it and that use across the app.
-                        ContentValues launchValues = new ContentValues();
+                        ContentValues databaseValues = new ContentValues();
 
-                        launchValues.put(DataBaseContract.DBEntry.COLUMN_NAME_LAUNCH, launchName);
-                        launchValues.put(DataBaseContract.DBEntry.COLUMN_NET_LAUNCH, launchNet);
-                        launchValues.put(DataBaseContract.DBEntry.COLUMN_TBDTIME_LAUNCH, launchTBDTime);
-                        launchValues.put(DataBaseContract.DBEntry.COLUMN_TBDDATE_LAUNCH, launchTBDDate);
-                        launchValues.put(DataBaseContract.DBEntry.COLUMN_PROBABILITY_LAUNCH, launchProbability);
+                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_NAME_LAUNCH, launchName);
+                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_NET_LAUNCH, launchNet);
+                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_TBDTIME_LAUNCH, launchTBDTime);
+                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_TBDDATE_LAUNCH, launchTBDDate);
+                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_PROBABILITY_LAUNCH, launchProbability);
 
                         // TODO: Move database operation to async thread
-                        long newRowID = db.insert(DataBaseContract.DBEntry.LAUNCH_TABLE, null, launchValues);
+                        long newRowID = db.insert(DataBaseContract.DBEntry.LAUNCH_TABLE, null, databaseValues);
                         if(newRowID == -1) {
                             Log.d("DATABASE", "COULD NOT CREATE ROW");
                         } else {
