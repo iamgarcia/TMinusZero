@@ -11,7 +11,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "TMinusZero.db";
 
 
-    private static final String SQL_CREATE_ENTRIES =
+    private static final String SQL_CREATE_LAUNCH_TABLE =
             "CREATE TABLE " + DataBaseContract.DBEntry.LAUNCH_TABLE
             + " (" + DataBaseContract.DBEntry._ID + " INTEGER PRIMARY KEY," +
                     DataBaseContract.DBEntry.COLUMN_NAME_LAUNCH + " TEXT," +
@@ -29,7 +29,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(SQL_CREATE_LAUNCH_TABLE);
     }
 
     @Override
