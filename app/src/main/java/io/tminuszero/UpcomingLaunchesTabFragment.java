@@ -1,5 +1,7 @@
 package io.tminuszero;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,6 +27,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import io.tminuszero.api.Launch;
+import io.tminuszero.db.DataBaseContract;
+import io.tminuszero.db.DataBaseHelper;
 
 import static android.content.ContentValues.TAG;
 
@@ -58,7 +62,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
     }
 
     private void parseJSON() {
-        
+
         String url = "https://launchlibrary.net/1.4/launch/next/10";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -66,6 +70,10 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                 try {
                     int itemCount = response.getInt("count");
                     JSONArray jsonArray = response.getJSONArray("launches");
+
+                    // Initiate Database & Open in W
+                    DataBaseHelper dbHelper = new DataBaseHelper(getContext());
+                    SQLiteDatabase db = dbHelper.getWritableDatabase();
 
                     for(int i = 0; i < itemCount; i++) {
                         upcomingLaunchList.add(new Launch());
@@ -151,12 +159,21 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         upcomingLaunchList.get(i).configRocket(rocketName, rocketConfig, rocketFamily, rocketWikiURL, rocketImageURL, rocketImageSizes);
                         upcomingLaunchList.get(i).configLocation(locationName, locationCountryCode, padsName, padsWikiURL, padsMapURL, padsLatitude, padsLongitude);
 
+                        // TODO: Make a global variable class so I can store data to it and that use across the app.
+                        ContentValues val = new ContentValues();
+
+                        val.put(DataBaseContract.DBEntry.COLUMN_NAME_LAUNCH, missionName);
+                        val.put(DataBaseContract.DBEntry.COLUMN_NET_LAUNCH, missionType);
+
+                        long newRowID = db.insert(DataBaseContract.DBEntry.TABLE_NAME, null, val);
+                        if(newRowID == -1) {
+                            Log.d("DATABASE", "COULD NOT CREATE ROW");
+                        }
                     }
 
                     mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);
                     mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
-                    // TODO: Make a global variable class so I can store data to it and that use across the app.
                 } catch(JSONException e) {
                     e.printStackTrace();
                 }
