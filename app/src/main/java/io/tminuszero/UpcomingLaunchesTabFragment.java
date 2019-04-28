@@ -101,8 +101,6 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         launchTBDDate = launch.getInt("tbddate");
                         launchProbability = launch.getInt("probability");
 
-
-
                         // Mission attributes
                         JSONObject mission;
                         String missionName = "";
@@ -175,16 +173,16 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         upcomingLaunchList.get(i).configLocation(locationName, locationCountryCode, padsName, padsWikiURL, padsMapURL, padsLatitude, padsLongitude);
 
                         // TODO: Make a global variable class so I can store data to it and that use across the app.
-                        ContentValues val = new ContentValues();
+                        ContentValues launchValues = new ContentValues();
 
-                        val.put(DataBaseContract.DBEntry.COLUMN_NAME_LAUNCH, launchName);
-                        val.put(DataBaseContract.DBEntry.COLUMN_NET_LAUNCH, launchNet);
-                        val.put(DataBaseContract.DBEntry.COLUMN_TBDTIME_LAUNCH, launchTBDTime);
-                        val.put(DataBaseContract.DBEntry.COLUMN_TBDDATE_LAUNCH, launchTBDDate);
-                        val.put(DataBaseContract.DBEntry.COLUMN_PROBABILITY_LAUNCH, launchProbability);
+                        launchValues.put(DataBaseContract.DBEntry.COLUMN_NAME_LAUNCH, launchName);
+                        launchValues.put(DataBaseContract.DBEntry.COLUMN_NET_LAUNCH, launchNet);
+                        launchValues.put(DataBaseContract.DBEntry.COLUMN_TBDTIME_LAUNCH, launchTBDTime);
+                        launchValues.put(DataBaseContract.DBEntry.COLUMN_TBDDATE_LAUNCH, launchTBDDate);
+                        launchValues.put(DataBaseContract.DBEntry.COLUMN_PROBABILITY_LAUNCH, launchProbability);
 
                         // TODO: Move database operation to async thread
-                        long newRowID = db.insert(DataBaseContract.DBEntry.LAUNCH_TABLE, null, val);
+                        long newRowID = db.insert(DataBaseContract.DBEntry.LAUNCH_TABLE, null, launchValues);
                         if(newRowID == -1) {
                             Log.d("DATABASE", "COULD NOT CREATE ROW");
                         } else {
