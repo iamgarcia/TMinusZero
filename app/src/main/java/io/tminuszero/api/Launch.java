@@ -17,8 +17,6 @@ public class Launch {
     private int tbdTime;
     private int tbdDate;
     private String net;
-    private String holdReason;
-    private String failReason;
 
     /* Launch Class Default Constructor */
     public Launch() {
@@ -27,9 +25,15 @@ public class Launch {
         tbdTime = -1;
         tbdDate = -1;
         net = "";
-        holdReason = "";
-        failReason = "";
         nextSequence++;
+    }
+
+    /* Launch Class Configuration */
+    public void configLaunch(String name, String net, int tbdTime, int tbdDate, int probability) {
+        setNet(net);
+        setTbdTime(tbdTime);
+        setTbdDate(tbdDate);
+        setProbability(probability);
     }
 
     /* LSP Class Configuration */
@@ -83,46 +87,17 @@ public class Launch {
         this.tbdDate = tbdDate;
     }
 
-    public void setNet(String net) {
-        this.net = net;
-    }
+    public void setNet(String net) { this.net = net; }
 
-    public void setHoldReason(String holdReason) {
-        this.holdReason = holdReason;
-    }
+    public int getSequence() { return sequence; }
 
-    public void setFailReason(String failReason) {
-        this.failReason = failReason;
-    }
+    public int getProbability() { return probability; }
 
-    public int getSequence() {
-        return sequence;
-    }
+    public int getTbdTime() { return tbdTime; }
 
-    public int getProbability() {
-        return probability;
-    }
+    public int getTbdDate() { return tbdDate; }
 
-    public int getTbdTime() {
-        return tbdTime;
-    }
-
-    public int getTbdDate() {
-        return tbdDate;
-    }
-
-    public String getNet() {
-        return net;
-    }
-
-    public String getHoldReason() {
-        return holdReason;
-    }
-
-    public String getFailReason() {
-        return failReason;
-    }
-
+    public String getNet() { return net; }
 }
 
 //public class Launch {

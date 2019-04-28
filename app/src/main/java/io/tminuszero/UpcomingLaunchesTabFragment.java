@@ -1,6 +1,9 @@
 package io.tminuszero;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,8 +28,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import io.tminuszero.api.Launch;
-
-import static android.content.ContentValues.TAG;
+import io.tminuszero.db.DataBaseContract;
+import io.tminuszero.db.DataBaseHelper;
 
 public class UpcomingLaunchesTabFragment extends Fragment {
 
@@ -67,6 +70,10 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                     int itemCount = response.getInt("count");
                     JSONArray jsonArray = response.getJSONArray("launches");
 
+                    // Initiate Database & Open in W
+                    DataBaseHelper dbHelper = new DataBaseHelper(getContext());
+                    SQLiteDatabase db = dbHelper.getWritableDatabase();
+
                     for(int i = 0; i < itemCount; i++) {
                         upcomingLaunchList.add(new Launch());
 
@@ -80,6 +87,21 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         JSONArray imageSizes = rocket.getJSONArray("imageSizes");
                         JSONArray pads = location.getJSONArray("pads");
                         JSONObject pad = pads.getJSONObject(0);
+
+                        // Launch attributes
+                        String launchName = "";
+                        String launchNet = "";
+                        int launchTBDTime = -1;
+                        int launchTBDDate = -1;
+                        int launchProbability = -1;
+
+                        launchName = launch.getString("name");
+                        launchNet = launch.getString("net");
+                        launchTBDTime = launch.getInt("tbdtime");
+                        launchTBDDate = launch.getInt("tbddate");
+                        launchProbability = launch.getInt("probability");
+
+
 
                         // Mission attributes
                         JSONObject mission;
@@ -146,10 +168,35 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         padsLatitude = (pad.getString("latitude") == null) ? "" : pad.getString("latitude");
                         padsLongitude = (pad.getString("longitude") == null) ? "" : pad.getString("longitude");
 
+                        upcomingLaunchList.get(i).configLaunch(launchName, launchNet, launchTBDTime, launchTBDDate, launchProbability);
                         upcomingLaunchList.get(i).configLSP(lspName, lspNameAbbrev, lspCountryCode, lspWikiURL);
                         upcomingLaunchList.get(i).configMission(missionName, missionDescription, missionType);
                         upcomingLaunchList.get(i).configRocket(rocketName, rocketConfig, rocketFamily, rocketWikiURL, rocketImageURL, rocketImageSizes);
                         upcomingLaunchList.get(i).configLocation(locationName, locationCountryCode, padsName, padsWikiURL, padsMapURL, padsLatitude, padsLongitude);
+
+                        // TODO: Make a global variable class so I can store data to it and that use across the app.
+                        ContentValues val = new ContentValues();
+
+                        val.put(DataBaseContract.DBEntry.COLUMN_NAME_LAUNCH, launchName);
+                        val.put(DataBaseContract.DBEntry.COLUMN_NET_LAUNCH, launchNet);
+                        val.put(DataBaseContract.DBEntry.COLUMN_TBDTIME_LAUNCH, launchTBDTime);
+                        val.put(DataBaseContract.DBEntry.COLUMN_TBDDATE_LAUNCH, launchTBDDate);
+                        val.put(DataBaseContract.DBEntry.COLUMN_PROBABILITY_LAUNCH, launchProbability);
+
+                        // TODO: Move database operation to async thread
+                        long newRowID = db.insert(DataBaseContract.DBEntry.LAUNCH_TABLE, null, val);
+                        if(newRowID == -1) {
+                            Log.d("DATABASE", "COULD NOT CREATE ROW");
+                        } else {
+                            Log.d("DATABASE", "Added " + launchName);
+                            Log.d("DATABASE", "Added " + launchNet);
+                            Log.d("DATABASE", "Added " + launchTBDTime);
+                            Log.d("DATABASE", "Added " + launchTBDDate);
+                            Log.d("DATABASE", "Added " + launchProbability);
+                        }
+
+                        // Close database
+                        db.close();
                     }
 
                     mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);
