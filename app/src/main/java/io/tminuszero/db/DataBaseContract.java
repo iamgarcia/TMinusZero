@@ -26,6 +26,7 @@ public final class DataBaseContract {
 
         // Table for FlightStatus
         public static final String FLIGHT_STATUS_TABLE = "flightStatus";
+        public static final String COLUMN_STATUS_FLIGHT_STATUS = "status";
         public static final String COLUMN_HOLD_REASON_FLIGHT_STATUS = "holdReason";
         public static final String COLUMN_FAIL_REASON_FLIGHT_STATUS = "failReason";
 
