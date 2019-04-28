@@ -101,6 +101,15 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         launchTBDDate = launch.getInt("tbddate");
                         launchProbability = launch.getInt("probability");
 
+                        // FlightStatus Attributes
+                        int flightStatus = -1;
+                        String flightHoldReason = "";
+                        String flightFailReason = "";
+
+                        flightStatus = launch.getInt("status");
+                        flightHoldReason = (launch.getString("holdreason") == null) ? "" : launch.getString("holdreason");
+                        flightFailReason = (launch.getString("failreason") == null) ? "" : launch.getString("failreason");
+
                         // Mission attributes
                         JSONObject mission;
                         String missionName = "";
@@ -184,7 +193,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         // TODO: Move database operation to async thread
                         long newRowID = db.insert(DataBaseContract.DBEntry.LAUNCH_TABLE, null, databaseValues);
                         if(newRowID == -1) {
-                            Log.d("DATABASE", "COULD NOT CREATE ROW");
+                            Log.d("DATABASE", "COULD NOT CREATE ROW IN " + DataBaseContract.DBEntry.LAUNCH_TABLE);
                         } else {
                             Log.d("DATABASE", "Added " + launchName);
                             Log.d("DATABASE", "Added " + launchNet);
@@ -193,8 +202,25 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                             Log.d("DATABASE", "Added " + launchProbability);
                         }
 
+                        databaseValues.clear();
+
+                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_STATUS_FLIGHT_STATUS, flightStatus);
+                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_HOLD_REASON_FLIGHT_STATUS, flightHoldReason);
+                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_FAIL_REASON_FLIGHT_STATUS, flightFailReason);
+
+
+                        Log.d("DATABASE", "Adding Flight Status...");
+                        newRowID = db.insert(DataBaseContract.DBEntry.FLIGHT_STATUS_TABLE, null, databaseValues);
+                        if(newRowID == -1) {
+                            Log.d("DATABASE", "COULD NOT CREATE NEW ROW IN " + DataBaseContract.DBEntry.FLIGHT_STATUS_TABLE);
+                        } else {
+                            Log.d("DATABASE", "Added " + flightStatus);
+                            Log.d("DATABASE", "Added " + flightHoldReason);
+                            Log.d("DATABASE", "Added " + flightFailReason);
+                        }
+
                         // Close database
-                        db.close();
+                        //db.close();
                     }
 
                     mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);
