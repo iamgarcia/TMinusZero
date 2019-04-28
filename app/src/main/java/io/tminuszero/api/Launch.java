@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Launch {
 
     /* Instantiate classes */
+    public FlightStatus flightStatus = new FlightStatus();
     public LSP lsp = new LSP();
     public Mission mission = new Mission();
     public Rocket rocket = new Rocket();
@@ -34,6 +35,12 @@ public class Launch {
         setTbdTime(tbdTime);
         setTbdDate(tbdDate);
         setProbability(probability);
+    }
+
+    public void configFlightStatus(int status, String holdReason, String failReason) {
+        flightStatus.setStatus(status);
+        flightStatus.setHoldReason(holdReason);
+        flightStatus.setFailReason(failReason);
     }
 
     /* LSP Class Configuration */
