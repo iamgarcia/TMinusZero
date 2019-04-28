@@ -45,7 +45,6 @@ public class UpcomingLaunchesRVAdapter extends RecyclerView.Adapter<UpcomingLaun
     public static class LaunchViewHolder extends RecyclerView.ViewHolder {
         CardView mCardView;
         TextView launchSequence;
-        TextView launchServiceProvider;
         TextView launchVehicle;
         TextView missionName;
 
@@ -53,7 +52,6 @@ public class UpcomingLaunchesRVAdapter extends RecyclerView.Adapter<UpcomingLaun
             super(itemView);
             mCardView = itemView.findViewById(R.id.card_view_launches);
             launchSequence = itemView.findViewById(R.id.launch_sequence);
-//            launchServiceProvider = itemView.findViewById(R.id.launch_service_provider);
             launchVehicle = itemView.findViewById(R.id.launch_vehicle);
             missionName = itemView.findViewById(R.id.mission_name);
         }
