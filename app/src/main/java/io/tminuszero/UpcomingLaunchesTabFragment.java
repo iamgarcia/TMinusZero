@@ -168,6 +168,9 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         long newRowID = db.insert(DataBaseContract.DBEntry.TABLE_NAME, null, val);
                         if(newRowID == -1) {
                             Log.d("DATABASE", "COULD NOT CREATE ROW");
+                        } else {
+                            Log.d("DATABASE", "Added " + missionName);
+                            Log.d("DATABASE", "Added " + missionType);
                         }
                     }
 
