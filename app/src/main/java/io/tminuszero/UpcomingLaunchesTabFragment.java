@@ -183,6 +183,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         val.put(DataBaseContract.DBEntry.COLUMN_TBDDATE_LAUNCH, launchTBDDate);
                         val.put(DataBaseContract.DBEntry.COLUMN_PROBABILITY_LAUNCH, launchProbability);
 
+                        // TODO: Move database operation to async thread
                         long newRowID = db.insert(DataBaseContract.DBEntry.LAUNCH_TABLE, null, val);
                         if(newRowID == -1) {
                             Log.d("DATABASE", "COULD NOT CREATE ROW");
@@ -193,6 +194,9 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                             Log.d("DATABASE", "Added " + launchTBDDate);
                             Log.d("DATABASE", "Added " + launchProbability);
                         }
+
+                        // Close database
+                        db.close();
                     }
 
                     mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);
