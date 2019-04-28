@@ -155,7 +155,6 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                     mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);
                     mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
-                    // TODO: Make a global variable class so I can store data to it and that use across the app.
                 } catch(JSONException e) {
                     e.printStackTrace();
                 }
