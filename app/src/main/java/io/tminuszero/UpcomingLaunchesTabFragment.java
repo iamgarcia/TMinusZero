@@ -58,7 +58,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
     }
 
     private void parseJSON() {
-
+        
         String url = "https://launchlibrary.net/1.4/launch/next/10";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -150,6 +150,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         upcomingLaunchList.get(i).configMission(missionName, missionDescription, missionType);
                         upcomingLaunchList.get(i).configRocket(rocketName, rocketConfig, rocketFamily, rocketWikiURL, rocketImageURL, rocketImageSizes);
                         upcomingLaunchList.get(i).configLocation(locationName, locationCountryCode, padsName, padsWikiURL, padsMapURL, padsLatitude, padsLongitude);
+
                     }
 
                     mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);
