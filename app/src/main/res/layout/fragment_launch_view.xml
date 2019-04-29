@@ -6,12 +6,12 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="327dp"
+        android:layout_height="258dp"
 
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"
-        android:src="@drawable/falconheavy"/>
+        android:src="@drawable/falconheavy" />
 
     <TextView
         android:id="@+id/rocketName"
@@ -23,7 +23,7 @@
         android:layout_marginTop="20dp"
         android:text="Falcon Heavy"
         android:textSize="13dp"
-        android:textColor="@color/textWhite"/>
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/missionName"
@@ -36,7 +36,7 @@
         android:text="Arabsat-6A"
         android:textSize="18dp"
         android:textStyle="bold"
-        android:textColor="@color/textWhite"/>
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/probability"
@@ -48,7 +48,7 @@
         android:layout_marginTop="70dp"
         android:text="Probability:"
         android:textSize="16dp"
-        android:textColor="@color/textWhite"/>
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/percentage"
@@ -60,6 +60,6 @@
         android:layout_marginTop="70dp"
         android:text="80%"
         android:textSize="16dp"
-        android:textColor="@color/textWhite"/>
+        android:textColor="@color/white"/>
 
 </RelativeLayout>

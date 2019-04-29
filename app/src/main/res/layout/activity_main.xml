@@ -18,8 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_navigation"
-        app:itemIconTint="@android:color/black"
-        app:itemTextColor="@color/textWhite"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
         app:elevation="16dp"
         android:background="@color/bottomNavigationBar"
         app:labelVisibilityMode="unlabeled"/>

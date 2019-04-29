@@ -1,6 +1,7 @@
 package io.tminuszero.api;
 
 public class Pads {
+
     private String name;
     private String wikiURL;
     private String mapURL;
