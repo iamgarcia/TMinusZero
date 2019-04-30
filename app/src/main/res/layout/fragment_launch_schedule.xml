@@ -7,6 +7,21 @@
     android:orientation="vertical"
     android:background="@color/activityBackground">
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?actionBarSize"
+        app:tabGravity="fill"
+        app:tabTextColor="@android:color/darker_gray"
+        app:tabSelectedTextColor="@color/azure"
+        app:tabIndicatorColor="@color/azure"
+        app:tabIndicatorHeight="4dp"
+        app:tabBackground="@color/activityBackground"
+        app:tabMode="fixed"
+    />
+
+    <!--
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
@@ -20,11 +35,13 @@
         app:tabBackground="@color/activityBackground"
         app:tabMode="fixed">
     </android.support.design.widget.TabLayout>
+    -->
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </android.support.v4.view.ViewPager>
+    </androidx.viewpager.widget.ViewPager>
+
 
 </LinearLayout>

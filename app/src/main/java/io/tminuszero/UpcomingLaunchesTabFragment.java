@@ -1,18 +1,18 @@
 package io.tminuszero;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,8 +28,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import io.tminuszero.api.Launch;
-import io.tminuszero.db.DataBaseContract;
-import io.tminuszero.db.DataBaseHelper;
+
 
 public class UpcomingLaunchesTabFragment extends Fragment {
 
@@ -69,10 +68,6 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                 try {
                     int itemCount = response.getInt("count");
                     JSONArray jsonArray = response.getJSONArray("launches");
-
-                    // Initiate Database & Open in W
-                    DataBaseHelper dbHelper = new DataBaseHelper(getContext());
-                    SQLiteDatabase db = dbHelper.getWritableDatabase();
 
                     for(int i = 0; i < itemCount; i++) {
                         upcomingLaunchList.add(new Launch());
@@ -182,45 +177,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         upcomingLaunchList.get(i).configLocation(locationName, locationCountryCode, padsName, padsWikiURL, padsMapURL, padsLatitude, padsLongitude);
 
                         // TODO: Make a global variable class so I can store data to it and that use across the app.
-                        ContentValues databaseValues = new ContentValues();
 
-                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_NAME_LAUNCH, launchName);
-                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_NET_LAUNCH, launchNet);
-                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_TBDTIME_LAUNCH, launchTBDTime);
-                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_TBDDATE_LAUNCH, launchTBDDate);
-                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_PROBABILITY_LAUNCH, launchProbability);
-
-                        // TODO: Move database operation to async thread
-                        long newRowID = db.insert(DataBaseContract.DBEntry.LAUNCH_TABLE, null, databaseValues);
-                        if(newRowID == -1) {
-                            Log.d("DATABASE", "COULD NOT CREATE ROW IN " + DataBaseContract.DBEntry.LAUNCH_TABLE);
-                        } else {
-                            Log.d("DATABASE", "Added " + launchName);
-                            Log.d("DATABASE", "Added " + launchNet);
-                            Log.d("DATABASE", "Added " + launchTBDTime);
-                            Log.d("DATABASE", "Added " + launchTBDDate);
-                            Log.d("DATABASE", "Added " + launchProbability);
-                        }
-
-                        databaseValues.clear();
-
-                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_STATUS_FLIGHT_STATUS, flightStatus);
-                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_HOLD_REASON_FLIGHT_STATUS, flightHoldReason);
-                        databaseValues.put(DataBaseContract.DBEntry.COLUMN_FAIL_REASON_FLIGHT_STATUS, flightFailReason);
-
-
-                        Log.d("DATABASE", "Adding Flight Status...");
-                        newRowID = db.insert(DataBaseContract.DBEntry.FLIGHT_STATUS_TABLE, null, databaseValues);
-                        if(newRowID == -1) {
-                            Log.d("DATABASE", "COULD NOT CREATE NEW ROW IN " + DataBaseContract.DBEntry.FLIGHT_STATUS_TABLE);
-                        } else {
-                            Log.d("DATABASE", "Added " + flightStatus);
-                            Log.d("DATABASE", "Added " + flightHoldReason);
-                            Log.d("DATABASE", "Added " + flightFailReason);
-                        }
-
-                        // Close database
-                        //db.close();
                     }
 
                     mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);
