@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import io.tminuszero.api.Launch;
+import io.tminuszero.db.LaunchRepository;
 
 
 public class UpcomingLaunchesTabFragment extends Fragment {
@@ -63,14 +64,17 @@ public class UpcomingLaunchesTabFragment extends Fragment {
 
         String url = "https://launchlibrary.net/1.4/launch/next/10";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     int itemCount = response.getInt("count");
+                    Log.d("ITEMCOUNT", "" + itemCount);
                     JSONArray jsonArray = response.getJSONArray("launches");
 
                     for(int i = 0; i < itemCount; i++) {
                         upcomingLaunchList.add(new Launch());
+                        Log.d("TEST", "" + i);
 
                         JSONObject launch = jsonArray.getJSONObject(i);
 
@@ -91,6 +95,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         int launchProbability = -1;
 
                         launchName = launch.getString("name");
+                        final int launchID = launch.getInt("id");
                         launchNet = launch.getString("net");
                         launchTBDTime = launch.getInt("tbdtime");
                         launchTBDDate = launch.getInt("tbddate");
@@ -176,8 +181,10 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         upcomingLaunchList.get(i).configRocket(rocketName, rocketConfig, rocketFamily, rocketWikiURL, rocketImageURL, rocketImageSizes);
                         upcomingLaunchList.get(i).configLocation(locationName, locationCountryCode, padsName, padsWikiURL, padsMapURL, padsLatitude, padsLongitude);
 
-                        // TODO: Make a global variable class so I can store data to it and that use across the app.
+                        LaunchRepository launchRepository = new LaunchRepository(getContext());
+                        Log.d("DATABASE", "INSERTING DATABASE");
 
+                        launchRepository.insertLaunch(launchName, launchNet);
                     }
 
                     mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);
