@@ -1,7 +1,6 @@
 package io.tminuszero;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,10 @@ public class LaunchesItemView extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d("WARN", "onCreateView: launched fragment");
+        ((MainActivity) getActivity()).setTitle("#ArabSat6A");
         return inflater.inflate(R.layout.fragment_launch_view, container, false);
     }
+
+
 
 }
