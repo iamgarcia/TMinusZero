@@ -88,27 +88,17 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         JSONObject pad = pads.getJSONObject(0);
 
                         // Launch attributes
-                        String launchName = "";
-                        String launchNet = "";
-                        int launchTBDTime = -1;
-                        int launchTBDDate = -1;
-                        int launchProbability = -1;
-
-                        launchName = launch.getString("name");
+                        String launchName = launch.getString("name");
                         int launchID = launch.getInt("id");
-                        launchNet = launch.getString("net");
-                        launchTBDTime = launch.getInt("tbdtime");
-                        launchTBDDate = launch.getInt("tbddate");
-                        launchProbability = launch.getInt("probability");
+                        String launchNet = launch.getString("net");
+                        int launchTBDTime = launch.getInt("tbdtime");
+                        int launchTBDDate = launch.getInt("tbddate");
+                        int launchProbability = launch.getInt("probability");
 
                         // FlightStatus Attributes
-                        int flightStatus = -1;
-                        String flightHoldReason = "";
-                        String flightFailReason = "";
-
-                        flightStatus = launch.getInt("status");
-                        flightHoldReason = (launch.getString("holdreason") == null) ? "" : launch.getString("holdreason");
-                        flightFailReason = (launch.getString("failreason") == null) ? "" : launch.getString("failreason");
+                        int flightStatus = ((launch.getInt("status") <= 0) || (launch.getInt("status") > 4)) ? -1 : launch.getInt("status"); // -1 == Not valid, 1 == Green, 2 == Red, 3 == Success, 4 == Failed
+                        String flightHoldReason = (launch.getString("holdreason") == null) ? "" : launch.getString("holdreason");
+                        String flightFailReason = (launch.getString("failreason") == null) ? "" : launch.getString("failreason");
 
                         // Mission attributes
                         JSONObject mission;
@@ -119,38 +109,29 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         if(missions.length() > 0) {
                             mission = missions.getJSONObject(0);
 
-                            missionName = (mission.getString("name") == null) ? "" : mission.getString("name");
-                            missionDescription = (mission.getString("description") == null) ? "" : mission.getString("description");
-                            missionType = (mission.getString("typeName") == null) ? "" : mission.getString("typeName");
+                            if(mission.getString("name") != null) missionName = mission.getString("name");
+                            if(mission.getString("description") != null) missionDescription = mission.getString("description");
+                            if(mission.getString("typeName") != null) missionType = mission.getString("typeName");
 
+                            // TODO: The docs says agencies should return an array however in this
+                            //       request, it returns a null object, not an array
                             JSONArray agencies = mission.getJSONArray("agencies");
                             JSONObject agency = agencies.getJSONObject(0);
                             agencyName = agency.getString("name");
                         }
 
-                        // LSP attributes
-                        String lspName;
-                        String lspNameAbbrev;
-                        String lspCountryCode;
-                        String lspWikiURL;
-
-                        lspName = (lsp.getString("name") == null) ? "" : lsp.getString("name");
-                        lspNameAbbrev = (lsp.getString("abbrev") == null) ? "" : lsp.getString("abbrev");
-                        lspCountryCode = (lsp.getString("countryCode") == null) ? "" : lsp.getString("countryCode");
-                        lspWikiURL = (lsp.getString("wikiURL") == null) ? "" : lsp.getString("wikiURL");
+                        // Launch Service Provider (LSP) attributes
+                        String lspName = (lsp.getString("name") == null) ? "" : lsp.getString("name");
+                        String lspNameAbbrev = (lsp.getString("abbrev") == null) ? "" : lsp.getString("abbrev");
+                        String lspCountryCode = (lsp.getString("countryCode") == null) ? "" : lsp.getString("countryCode");
+                        String lspWikiURL = (lsp.getString("wikiURL") == null) ? "" : lsp.getString("wikiURL");
 
                         // Rocket attributes
-                        String rocketName;
-                        String rocketConfig;
-                        String rocketFamily;
-                        String rocketWikiURL;
-                        String rocketImageURL;
-
-                        rocketName = (rocket.getString("name") == null) ? "" : rocket.getString("name");
-                        rocketConfig = (rocket.getString("configuration") == null) ? "" : rocket.getString("configuration");
-                        rocketFamily = (rocket.getString("familyname") == null) ? "" : rocket.getString("familyname");
-                        rocketWikiURL = (rocket.getString("wikiURL") == null) ? "" : rocket.getString("wikiURL");;
-                        rocketImageURL = (rocket.getString("imageURL") == null) ? "" : rocket.getString("imageURL");
+                        String rocketName = (rocket.getString("name") == null) ? "" : rocket.getString("name");
+                        String rocketConfig = (rocket.getString("configuration") == null) ? "" : rocket.getString("configuration");
+                        String rocketFamily = (rocket.getString("familyname") == null) ? "" : rocket.getString("familyname");
+                        String rocketWikiURL = (rocket.getString("wikiURL") == null) ? "" : rocket.getString("wikiURL");;
+                        String rocketImageURL = (rocket.getString("imageURL") == null) ? "" : rocket.getString("imageURL");
 
                         ArrayList<Integer> rocketImageSizes = new ArrayList<>();
 
@@ -163,23 +144,17 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         }
 
                         // Location attributes
-                        String locationName;
-                        String locationCountryCode;
+                        String locationName = (location.getString("name") == null) ? "" : location.getString("name");
+                        String locationCountryCode = (location.getString("countryCode") == null) ? "" : location.getString("countryCode");
 
-                        String padsName;
-                        String padsWikiURL;
-                        String padsMapURL;
-                        String padsLatitude;
-                        String padsLongitude;
+                        // Pad attributes
+                        String padsName = (pad.getString("name") == null) ? "" : pad.getString("name");
+                        String padsWikiURL = (pad.getString("wikiURL") == null) ? "" : pad.getString("wikiURL");
+                        String padsMapURL = (pad.getString("mapURL") == null) ? "" : pad.getString("mapURL");
+                        String padsLatitude = (pad.getString("latitude") == null) ? "" : pad.getString("latitude");
+                        String padsLongitude = (pad.getString("longitude") == null) ? "" : pad.getString("longitude");
 
-                        locationName = (location.getString("name") == null) ? "" : location.getString("name");
-                        locationCountryCode = (location.getString("countryCode") == null) ? "" : location.getString("countryCode");
-                        padsName = (pad.getString("name") == null) ? "" : pad.getString("name");
-                        padsWikiURL = (pad.getString("wikiURL") == null) ? "" : pad.getString("wikiURL");
-                        padsMapURL = (pad.getString("mapURL") == null) ? "" : pad.getString("mapURL");
-                        padsLatitude = (pad.getString("latitude") == null) ? "" : pad.getString("latitude");
-                        padsLongitude = (pad.getString("longitude") == null) ? "" : pad.getString("longitude");
-
+                        // Configure the launch object at index i
                         upcomingLaunchList.get(i).configLaunch(launchName, launchNet, launchTBDTime, launchTBDDate, launchProbability);
                         upcomingLaunchList.get(i).configLSP(lspName, lspNameAbbrev, lspCountryCode, lspWikiURL);
                         upcomingLaunchList.get(i).configMission(missionName, missionDescription, missionType);
