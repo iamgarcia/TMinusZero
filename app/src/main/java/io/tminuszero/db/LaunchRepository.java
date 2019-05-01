@@ -3,7 +3,10 @@ package io.tminuszero.db;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Room;
+
+import java.util.List;
 
 public class LaunchRepository {
     private String DB_NAME = "Launch.db";
@@ -15,11 +18,22 @@ public class LaunchRepository {
                 .fallbackToDestructiveMigration().build();
     }
 
-    public void insertLaunch(String name, String net) {
+    public void insertLaunch(int launchID, String net, String rocketName,
+                             String missionName, int probability, String LSPName,
+                             String locationName, String padName, String agencyName,
+                             String missionDetails) {
         LaunchEntity launch = new LaunchEntity();
 
-        launch.concatenatedName = name;
-        launch.net = net;
+        launch.setLaunchID(launchID);
+        launch.setNet(net);
+        launch.setRocketName(rocketName);
+        launch.setMissionName(missionName);
+        launch.setProbability(probability);
+        launch.setLSPName(LSPName);
+        launch.setLocationName(locationName);
+        launch.setPadName(padName);
+        launch.setAgencyName(agencyName);
+        launch.setMissionDetails(missionDetails);
 
         insertLaunch(launch);
     }
@@ -33,5 +47,9 @@ public class LaunchRepository {
                 return null;
             }
         }.execute();
+    }
+
+    public LiveData<List<LaunchEntity>> getLaunch() {
+        return launchDatabase.launchDao().fetchAllLaunches();
     }
 }

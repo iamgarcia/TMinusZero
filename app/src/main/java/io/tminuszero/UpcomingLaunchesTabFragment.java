@@ -95,7 +95,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         int launchProbability = -1;
 
                         launchName = launch.getString("name");
-                        final int launchID = launch.getInt("id");
+                        int launchID = launch.getInt("id");
                         launchNet = launch.getString("net");
                         launchTBDTime = launch.getInt("tbdtime");
                         launchTBDDate = launch.getInt("tbddate");
@@ -115,12 +115,17 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         String missionName = "";
                         String missionDescription = "";
                         String missionType = "";
+                        String agencyName = "";
                         if(missions.length() > 0) {
                             mission = missions.getJSONObject(0);
 
                             missionName = (mission.getString("name") == null) ? "" : mission.getString("name");
                             missionDescription = (mission.getString("description") == null) ? "" : mission.getString("description");
                             missionType = (mission.getString("typeName") == null) ? "" : mission.getString("typeName");
+
+                            JSONArray agencies = mission.getJSONArray("agencies");
+                            JSONObject agency = agencies.getJSONObject(0);
+                            agencyName = agency.getString("name");
                         }
 
                         // LSP attributes
@@ -184,7 +189,9 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         LaunchRepository launchRepository = new LaunchRepository(getContext());
                         Log.d("DATABASE", "INSERTING DATABASE");
 
-                        launchRepository.insertLaunch(launchName, launchNet);
+                        launchRepository.insertLaunch(launchID, launchNet, rocketName,
+                                missionName, launchProbability, lspName,
+                                locationName, padsName, agencyName, missionDescription);
                     }
 
                     mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);
