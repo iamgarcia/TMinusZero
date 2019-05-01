@@ -1,77 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        
-        <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="0dp">
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/rocketImage"
-                android:layout_width="wrap_content"
-                android:layout_height="258dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/falconheavy"/>
-
-            <TextView
-                android:id="@+id/rocketName"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:text="Falcon Heavy"
-                android:textSize="13dp"
-                android:textColor="@color/white"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/missionName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="35dp"
-                android:text="Arabsat-6A"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"/>
+                <ImageView
+                    android:id="@+id/rocketImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="258dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/falconheavy" />
 
-            <TextView
-                android:id="@+id/probability"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="70dp"
-                android:text="Probability:"
-                android:textSize="16dp"
-                android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/rocketName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Falcon Heavy"
+                    android:textColor="@color/white"
+                    android:textSize="13dp" />
 
-            <TextView
-                android:id="@+id/percentage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="70dp"
-                android:text="80%"
-                android:textSize="16dp"
-                android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/missionName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="35dp"
+                    android:text="Arabsat-6A"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/probability"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="70dp"
+                    android:text="Probability:"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="70dp"
+                    android:text="80%"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/netTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rocketImage"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="25dp"
+                    android:text="T-0"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/net"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/netTitle"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="5dp"
+                    android:text="April 10, 2019 3:36 PM PT"
+                    android:textColor="@color/gray"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:id="@+id/lspTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/net"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Launch Service Provider"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lsp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lspTitle"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="5dp"
+                    android:text="SpaceX"
+                    android:textColor="@color/gray"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:id="@+id/locationTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lsp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="Location"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/locationTitle"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="Kennedy Space Center, FL, USA"
+                    android:textColor="@color/gray"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:id="@+id/padTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/location"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Pad"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/pad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/padTitle"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Launch Complex 39A"
+                    android:textColor="@color/gray"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:id="@+id/agencyTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pad"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Agency"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/agency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/agencyTitle"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="25dp"
+                    android:text="Arab Satellite Communications Organization"
+                    android:textColor="@color/gray"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:id="@+id/missionInfoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/agency"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Mission Details"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/missionInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/missionInfoTitle"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="25dp"
+                    android:text="Arabsat-6A is a Saudi Arabian communications satellite to be positioned at 30.5°East orbital slot. Arabsat-6A was built by Lockheed Martin for Arabsat and will deliver TV, internet and mobile phone services to the Middle East, Africa and Europe."
+                    android:textColor="@color/gray"
+                    android:textSize="13dp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
     </ScrollView>
 
