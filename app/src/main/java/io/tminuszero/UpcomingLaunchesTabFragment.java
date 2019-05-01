@@ -82,7 +82,6 @@ public class UpcomingLaunchesTabFragment extends Fragment {
 
                     for(int i = 0; i < itemCount; i++) {
                         upcomingLaunchList.add(new Launch());
-                        Log.d("TEST", "" + i);
 
                         JSONObject launch = jsonArray.getJSONObject(i);
 
@@ -123,12 +122,12 @@ public class UpcomingLaunchesTabFragment extends Fragment {
 
                             // TODO: The docs says agencies should return an array however in this
                             //       request, it returns a null object, not an array
-                            /*
+
                             JSONArray agencies = mission.getJSONArray("agencies");
                             if(agencies.length() > 0) {
                                 JSONObject agency = agencies.getJSONObject(0);
                                 agencyName = agency.getString("name");
-                            }*/
+                            }
 
                         }
 
@@ -178,7 +177,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         // TODO: Replace agencyName with actual agencyName.
                         launchRepository.insertLaunch(launchID, launchNet, rocketName,
                                 missionName, launchProbability, lspName,
-                                locationName, padsName, "    ", missionDescription);
+                                locationName, padsName, agencyName, missionDescription);
                     }
 
                     mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);

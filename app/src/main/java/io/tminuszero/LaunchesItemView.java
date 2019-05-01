@@ -61,8 +61,9 @@ public class LaunchesItemView extends Fragment {
         final TextView location = (TextView) rootView.findViewById(R.id.location);
         location.setText(launchEntity.getLocationName());
 
-        // TODO: implement agency name, waiting on api fix.
         // Set agency name
+        final TextView agencyName = (TextView) rootView.findViewById(R.id.agency);
+        agencyName.setText(launchEntity.getAgencyName());
 
         // Set pad name
         final TextView padName = (TextView) rootView.findViewById(R.id.pad);
