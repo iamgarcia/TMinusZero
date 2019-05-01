@@ -52,4 +52,15 @@ public class LaunchRepository {
     public LiveData<List<LaunchEntity>> getLaunch() {
         return launchDatabase.launchDao().fetchAllLaunches();
     }
+
+    public void deleteAll() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                launchDatabase.launchDao().deleteAll();
+
+                return null;
+            }
+        }.execute();
+    }
 }

@@ -38,6 +38,8 @@ public class UpcomingLaunchesTabFragment extends Fragment {
     private UpcomingLaunchesRVAdapter mRecyclerViewAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private RequestQueue mQueue;
+    private LaunchRepository launchRepository;
+
 
     @Nullable
     @Override
@@ -51,6 +53,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
 
         mRecyclerView = view.findViewById(R.id.recycler_view_launches);
         mLinearLayoutManager = new LinearLayoutManager(getContext());
+        launchRepository = new LaunchRepository(getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
@@ -60,6 +63,13 @@ public class UpcomingLaunchesTabFragment extends Fragment {
         parseJSON();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Log.d("DATABASE", "DELETING DATABASE");
+        launchRepository.deleteAll();
+    }
     private void parseJSON() {
 
         String url = "https://launchlibrary.net/1.4/launch/next/10";
@@ -124,8 +134,11 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                             missionType = (mission.getString("typeName") == null) ? "" : mission.getString("typeName");
 
                             JSONArray agencies = mission.getJSONArray("agencies");
-                            JSONObject agency = agencies.getJSONObject(0);
-                            agencyName = agency.getString("name");
+                            if(agencies.length() > 0) {
+                                JSONObject agency = agencies.getJSONObject(0);
+                                agencyName = agency.getString("name");
+                            }
+
                         }
 
                         // LSP attributes
@@ -186,7 +199,6 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         upcomingLaunchList.get(i).configRocket(rocketName, rocketConfig, rocketFamily, rocketWikiURL, rocketImageURL, rocketImageSizes);
                         upcomingLaunchList.get(i).configLocation(locationName, locationCountryCode, padsName, padsWikiURL, padsMapURL, padsLatitude, padsLongitude);
 
-                        LaunchRepository launchRepository = new LaunchRepository(getContext());
                         Log.d("DATABASE", "INSERTING DATABASE");
 
                         launchRepository.insertLaunch(launchID, launchNet, rocketName,
@@ -209,7 +221,6 @@ public class UpcomingLaunchesTabFragment extends Fragment {
         });
 
         mQueue.add(request);
-
     }
 
 }

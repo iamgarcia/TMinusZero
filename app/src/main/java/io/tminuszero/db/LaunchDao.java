@@ -16,6 +16,9 @@ public interface LaunchDao {
     @Query("SELECT * FROM LaunchEntity")
     LiveData<List<LaunchEntity>> fetchAllLaunches();
 
+    @Query("DELETE FROM launchentity")
+    void deleteAll();
+
     @Delete
     void delete(LaunchEntity launch);
 }
