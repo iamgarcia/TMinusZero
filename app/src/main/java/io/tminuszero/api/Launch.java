@@ -17,6 +17,7 @@ public class Launch {
     private int probability;
     private int tbdTime;
     private int tbdDate;
+    private int launchID;
     private String net;
 
     /* Launch Class Default Constructor */
@@ -27,14 +28,16 @@ public class Launch {
         tbdDate = -1;
         net = "";
         nextSequence++;
+        launchID = -1;
     }
 
     /* Launch Class Configuration */
-    public void configLaunch(String name, String net, int tbdTime, int tbdDate, int probability) {
+    public void configLaunch(String name, String net, int tbdTime, int tbdDate, int probability, int launchID) {
         setNet(net);
         setTbdTime(tbdTime);
         setTbdDate(tbdDate);
         setProbability(probability);
+        setLaunchID(launchID);
     }
 
     public void configFlightStatus(int status, String holdReason, String failReason) {
@@ -87,11 +90,15 @@ public class Launch {
         this.tbdTime = tbdTime;
     }
 
+    public void setLaunchID(int launchID) { this.launchID = launchID;}
+
     public void setTbdDate(int tbdDate) {
         this.tbdDate = tbdDate;
     }
 
     public void setNet(String net) { this.net = net; }
+
+    public int getLaunchID() {return launchID;}
 
     public int getSequence() { return sequence; }
 

@@ -36,6 +36,9 @@ public class UpcomingLaunchesRVAdapter extends RecyclerView.Adapter<UpcomingLaun
         launchViewHolder.launchSequence.setText(String.valueOf(launch.getSequence()));
         launchViewHolder.launchVehicle.setText(launch.rocket.getName());
         launchViewHolder.missionName.setText(launch.mission.getName());
+
+        // TODO: Find a better way to do this.
+        launchViewHolder.rocketID = launch.getLaunchID();
     }
 
     @Override
@@ -49,6 +52,7 @@ public class UpcomingLaunchesRVAdapter extends RecyclerView.Adapter<UpcomingLaun
         TextView launchSequence;
         TextView launchVehicle;
         TextView missionName;
+        int rocketID;
 
         public LaunchViewHolder(final View itemView) {
             super(itemView);
@@ -61,7 +65,7 @@ public class UpcomingLaunchesRVAdapter extends RecyclerView.Adapter<UpcomingLaun
                 @Override
                 public void onClick(View v) {
                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                    Fragment fragment = new LaunchesItemView();
+                    Fragment fragment = new LaunchesItemView(rocketID, v.getContext());
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
                 }
             });

@@ -217,7 +217,7 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="25dp"
-                    android:text="Arabsat-6A is a Saudi Arabian communications satellite to be positioned at 30.5°East orbital slot. Arabsat-6A was built by Lockheed Martin for Arabsat and will deliver TV, internet and mobile phone services to the Middle East, Africa and Europe."
+                    android:text="@string/mission_details"
                     android:textColor="@color/gray"
                     android:textSize="13dp"/>
 

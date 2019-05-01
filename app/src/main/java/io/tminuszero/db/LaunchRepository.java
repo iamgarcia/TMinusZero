@@ -49,6 +49,36 @@ public class LaunchRepository {
         }.execute();
     }
 
+    public void updateLaunchEntity(final LaunchEntity launch) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                launchDatabase.launchDao().updateLaunchEntity(launch);
+                return null;
+            }
+        }.execute();
+    }
+
+    public LaunchEntity getLaunchEntity(final int launchID) {
+        LaunchEntity temp = null;
+
+        // TODO: Figure out how this works?
+        try {
+            temp =
+                    new AsyncTask<Void, Void, LaunchEntity>() {
+                        @Override
+                        protected LaunchEntity doInBackground(Void... voids) {
+                            return launchDatabase.launchDao().getLaunchEntity(launchID);
+                        }
+                    }.execute().get();
+
+        } catch(Exception e) {
+
+        }
+
+        return temp;
+    }
+
     public LiveData<List<LaunchEntity>> getLaunch() {
         return launchDatabase.launchDao().fetchAllLaunches();
     }
