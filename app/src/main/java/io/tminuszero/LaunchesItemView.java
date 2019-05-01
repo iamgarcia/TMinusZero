@@ -22,6 +22,10 @@ public class LaunchesItemView extends Fragment {
 
     private int rocketID;
 
+    public LaunchesItemView() {
+        // Empty constructor
+    }
+
     public LaunchesItemView(int rocketID, Context context) {
         this.rocketID = rocketID;
         launchRepository = new LaunchRepository(context);
@@ -31,7 +35,12 @@ public class LaunchesItemView extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LaunchEntity launchEntity = launchRepository.getLaunchEntity(rocketID);
-        ((MainActivity) getActivity()).setTitle(launchEntity.getMissionName());
+
+        // Set hashtag
+        if(launchEntity.getMissionName().isEmpty())
+            ((MainActivity) getActivity()).setTitle("Hashtag TBD");
+        else
+            ((MainActivity) getActivity()).setTitle(launchEntity.getMissionName());
 
         View rootView = inflater.inflate(R.layout.fragment_launch_view, container, false);
 
@@ -43,27 +52,41 @@ public class LaunchesItemView extends Fragment {
         final TextView missionName = (TextView) rootView.findViewById(R.id.missionName);
         missionName.setText(launchEntity.getMissionName());
 
-        // TODO: Fix percentage display, on -1%
         // Set percentage display
         final TextView percentage = (TextView) rootView.findViewById(R.id.percentage);
-        percentage.setText(launchEntity.getProbability() + "%");
+        if((launchEntity.getProbability() < 0) || (launchEntity.getProbability() > 100))
+            percentage.setText("Unknown");
+        else
+            percentage.setText(launchEntity.getProbability() + "%");
 
         // TODO: Fix Date to show local time?
         // Set No Earlier Than (NET)
         final TextView net = (TextView) rootView.findViewById(R.id.net);
-        net.setText(launchEntity.getNet());
+        if(launchEntity.getNet().isEmpty())
+            net.setText("Launch date not yet known");
+        else
+            net.setText(launchEntity.getNet());
 
         // Set Launch Service Provider (LSP)
         final TextView lsp = (TextView) rootView.findViewById(R.id.lsp);
-        lsp.setText(launchEntity.getLSPName());
+        if(launchEntity.getLSPName().isEmpty())
+            lsp.setText("Launch service provider not yet known");
+        else
+            lsp.setText(launchEntity.getLSPName());
 
         // Set location
         final TextView location = (TextView) rootView.findViewById(R.id.location);
-        location.setText(launchEntity.getLocationName());
+        if(launchEntity.getLocationName().isEmpty())
+            location.setText("Location not yet known");
+        else
+            location.setText(launchEntity.getLocationName());
 
         // Set agency name
         final TextView agencyName = (TextView) rootView.findViewById(R.id.agency);
-        agencyName.setText(launchEntity.getAgencyName());
+        if(launchEntity.getAgencyName().isEmpty())
+            agencyName.setText("Agency not yet known");
+        else
+            agencyName.setText(launchEntity.getAgencyName());
 
         // Set pad name
         final TextView padName = (TextView) rootView.findViewById(R.id.pad);
@@ -71,7 +94,10 @@ public class LaunchesItemView extends Fragment {
 
         // Set mission details
         final TextView missionDetails = (TextView) rootView.findViewById(R.id.missionInfo);
-        missionDetails.setText(launchEntity.getMissionDetails());
+        if(launchEntity.getMissionDetails().isEmpty())
+            missionDetails.setText("Mission details not yet known");
+        else
+            missionDetails.setText(launchEntity.getMissionDetails());
 
         return rootView;
     }
