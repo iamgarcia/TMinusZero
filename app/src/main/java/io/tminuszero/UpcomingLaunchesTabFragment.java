@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -125,11 +123,12 @@ public class UpcomingLaunchesTabFragment extends Fragment {
 
                             // TODO: The docs says agencies should return an array however in this
                             //       request, it returns a null object, not an array
+                            /*
                             JSONArray agencies = mission.getJSONArray("agencies");
                             if(agencies.length() > 0) {
                                 JSONObject agency = agencies.getJSONObject(0);
                                 agencyName = agency.getString("name");
-                            }
+                            }*/
 
                         }
 
@@ -176,9 +175,10 @@ public class UpcomingLaunchesTabFragment extends Fragment {
 
                         Log.d("DATABASE", "INSERTING DATABASE");
 
+                        // TODO: Replace agencyName with actual agencyName.
                         launchRepository.insertLaunch(launchID, launchNet, rocketName,
                                 missionName, launchProbability, lspName,
-                                locationName, padsName, agencyName, missionDescription);
+                                locationName, padsName, "    ", missionDescription);
                     }
 
                     mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);
