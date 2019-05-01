@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewTitle"
         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"

@@ -62,4 +62,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    public void setTitle(String title) {
+        TextView textView = findViewById(R.id.textViewTitle);
+        textView.setText(title);
+    }
 }
