@@ -21,7 +21,7 @@ public class LaunchRepository {
     public void insertLaunch(int launchID, String net, String rocketName,
                              String missionName, int probability, String LSPName,
                              String locationName, String padName, String agencyName,
-                             String missionDetails) {
+                             String missionDetails, String hashTag) {
         LaunchEntity launch = new LaunchEntity();
 
         launch.setLaunchID(launchID);
@@ -34,6 +34,7 @@ public class LaunchRepository {
         launch.setPadName(padName);
         launch.setAgencyName(agencyName);
         launch.setMissionDetails(missionDetails);
+        launch.setHashTag(hashTag);
 
         insertLaunch(launch);
     }

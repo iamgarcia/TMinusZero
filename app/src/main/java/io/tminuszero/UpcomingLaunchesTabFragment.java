@@ -102,6 +102,9 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         int launchTBDDate = launch.getInt("tbddate");
                         int launchProbability = launch.getInt("probability");
 
+                        // Media
+                        String mediaHashTag = launch.getString("hashtag");
+
                         // FlightStatus Attributes
                         int flightStatus = ((launch.getInt("status") <= 0) || (launch.getInt("status") > 4)) ? -1 : launch.getInt("status"); // -1 == Not valid, 1 == Green, 2 == Red, 3 == Success, 4 == Failed
                         String flightHoldReason = (launch.getString("holdreason") == null) ? "" : launch.getString("holdreason");
@@ -177,7 +180,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         // TODO: Replace agencyName with actual agencyName.
                         launchRepository.insertLaunch(launchID, launchNet, rocketName,
                                 missionName, launchProbability, lspName,
-                                locationName, padsName, agencyName, missionDescription);
+                                locationName, padsName, agencyName, missionDescription, mediaHashTag);
                     }
 
                     mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);

@@ -47,6 +47,18 @@ public class LaunchEntity implements Serializable {
     @ColumnInfo(name = "mission_details")
     private String missionDetails;
 
+    // Hashtag
+    @ColumnInfo(name = "hash_tag")
+    private String hashTag;
+
+    public String getHashTag() {
+        return hashTag;
+    }
+
+    public void setHashTag(String hashTag) {
+        this.hashTag = hashTag;
+    }
+
     public int getLaunchID() {
         return launchID;
     }
