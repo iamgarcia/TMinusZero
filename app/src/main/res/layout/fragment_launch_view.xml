@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/missionName"
                     android:layout_toRightOf="@+id/probability"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginTop="15dp"
                     android:text="80%"
                     android:textColor="@color/white"

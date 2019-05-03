@@ -37,10 +37,10 @@ public class LaunchesItemView extends Fragment {
         LaunchEntity launchEntity = launchRepository.getLaunchEntity(rocketID);
 
         // Set hashtag
-        if(launchEntity.getMissionName().isEmpty())
+        if(launchEntity.getHashTag().equals("null"))
             ((MainActivity) getActivity()).setTitle("Hashtag TBD");
         else
-            ((MainActivity) getActivity()).setTitle(launchEntity.getMissionName());
+            ((MainActivity) getActivity()).setTitle(launchEntity.getHashTag());
 
         View rootView = inflater.inflate(R.layout.fragment_launch_view, container, false);
 
