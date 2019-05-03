@@ -170,6 +170,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
 
                         // Configure the launch object at index i
                         upcomingLaunchList.get(i).configLaunch(launchName, launchNet, launchTBDTime, launchTBDDate, launchProbability, launchID);
+                        upcomingLaunchList.get(i).configFlightStatus(flightStatus, "", "");
                         upcomingLaunchList.get(i).configLSP(lspName, lspNameAbbrev, lspCountryCode, lspWikiURL);
                         upcomingLaunchList.get(i).configMission(missionName, missionDescription, missionType);
                         upcomingLaunchList.get(i).configRocket(rocketName, rocketConfig, rocketFamily, rocketWikiURL, rocketImageURL, rocketImageSizes);

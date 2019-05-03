@@ -17,13 +17,22 @@
         android:padding="15dp">
 
         <!-- Launch Sequence Text -->
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/launch_sequence"
+            android:id="@+id/launch_status"
+            android:src="@drawable/checkbox_blank_circle"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:textSize="20sp"/>
+            android:tint="@color/black"/>
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/launch_sequence"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:textSize="20sp"/>-->
 
         <!-- Launch Vehicle Text -->
         <TextView
@@ -31,7 +40,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/launch_vehicle"
             android:textSize="15sp"
-            android:layout_toEndOf="@id/launch_sequence"
+            android:layout_toEndOf="@id/launch_status"
             android:layout_marginStart="20sp"/>
 
         <!-- Mission Text -->
@@ -41,7 +50,7 @@
             android:id="@+id/mission_name"
             android:textSize="20sp"
             android:layout_below="@id/launch_vehicle"
-            android:layout_toEndOf="@id/launch_sequence"
+            android:layout_toEndOf="@id/launch_status"
             android:layout_marginStart="20sp"/>
 
         <!-- More Information Arrow Button -->

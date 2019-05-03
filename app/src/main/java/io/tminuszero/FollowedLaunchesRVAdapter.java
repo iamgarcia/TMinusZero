@@ -31,8 +31,8 @@ public class FollowedLaunchesRVAdapter extends RecyclerView.Adapter<FollowedLaun
     public void onBindViewHolder(LaunchViewHolder launchViewHolder, int i) {
         Launch launch = followedLaunchList.get(i);
 
-        launchViewHolder.launchSequence.setText(String.valueOf(launch.getSequence()));
-//        launchViewHolder.launchServiceProvider.setText(launch.lsp.getName());
+        // TODO: change color upon status
+//        launchViewHolder.launchSequence.setText(String.valueOf(launch.getSequence()));
         launchViewHolder.launchVehicle.setText(launch.rocket.getName());
         launchViewHolder.missionName.setText(launch.mission.getName());
     }
@@ -52,8 +52,9 @@ public class FollowedLaunchesRVAdapter extends RecyclerView.Adapter<FollowedLaun
         public LaunchViewHolder(View itemView) {
             super(itemView);
             mCardView = itemView.findViewById(R.id.card_view_launches);
-            launchSequence = itemView.findViewById(R.id.launch_sequence);
-//            launchServiceProvider = itemView.findViewById(R.id.launch_service_provider);
+
+            // TODO: change color upon status
+//            launchSequence = itemView.findViewById(R.id.launch_status);
             launchVehicle = itemView.findViewById(R.id.launch_vehicle);
             missionName = itemView.findViewById(R.id.mission_name);
         }

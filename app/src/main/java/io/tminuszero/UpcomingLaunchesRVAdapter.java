@@ -1,8 +1,10 @@
 package io.tminuszero;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,7 +35,12 @@ public class UpcomingLaunchesRVAdapter extends RecyclerView.Adapter<UpcomingLaun
     @Override
     public void onBindViewHolder(LaunchViewHolder launchViewHolder, int i) {
         Launch launch = upcomingLaunchList.get(i);
-        launchViewHolder.launchSequence.setText(String.valueOf(launch.getSequence()));
+
+        int green = Color.parseColor("#4CAF50");
+        int red = Color.parseColor("#FF0000");
+        if(launch.flightStatus.getStatus() == 1) launchViewHolder.launchStatus.setColorFilter(green);
+        if(launch.flightStatus.getStatus() == 2) launchViewHolder.launchStatus.setColorFilter(red);
+
         launchViewHolder.launchVehicle.setText(launch.rocket.getName());
         launchViewHolder.missionName.setText(launch.mission.getName());
 
@@ -49,7 +56,7 @@ public class UpcomingLaunchesRVAdapter extends RecyclerView.Adapter<UpcomingLaun
     public static class LaunchViewHolder extends RecyclerView.ViewHolder {
 
         CardView mCardView;
-        TextView launchSequence;
+        ImageView launchStatus;
         TextView launchVehicle;
         TextView missionName;
         int rocketID;
@@ -57,7 +64,7 @@ public class UpcomingLaunchesRVAdapter extends RecyclerView.Adapter<UpcomingLaun
         public LaunchViewHolder(final View itemView) {
             super(itemView);
             mCardView = itemView.findViewById(R.id.card_view_launches);
-            launchSequence = itemView.findViewById(R.id.launch_sequence);
+            launchStatus = itemView.findViewById(R.id.launch_status);
             launchVehicle = itemView.findViewById(R.id.launch_vehicle);
             missionName = itemView.findViewById(R.id.mission_name);
 
