@@ -12,42 +12,76 @@ public class LaunchEntity implements Serializable {
     @PrimaryKey
     private int launchID;
 
-    // No Earlier Than
+    /**
+     *  No Earlier Than
+     *  String
+     *  Note: formatted as mm, dd, yyyy hh24:mi:ss UTC
+     */
     @ColumnInfo(name = "net")
     private String net;
 
-    // Rocket Name
+    /**
+     *  Rocket Name
+     *  String
+     */
     @ColumnInfo(name = "rocket_name")
     private String rocketName;
 
-    // Mission Name
+    /**
+     *  Mission Name
+     *  String
+     */
     @ColumnInfo(name = "mission_name")
     private String missionName;
 
-    // Launch Probability
+    /**
+     *  Launch Probability
+     *  int
+     *  Note: will return -1 if unknown to us
+     */
     @ColumnInfo(name = "probability")
     private int probability;
 
-    // Launch service provider name
+    /**
+     *  Launch Service Provider Name
+     *  String
+     */
     @ColumnInfo(name = "lsp_name")
     private String LSPName;
 
-    // Location name
+    /**
+     *  Location Name
+     *  String
+     */
     @ColumnInfo(name = "location_name")
     private String locationName;
 
-    // Pad name
+    /**
+     *  Pad Name
+     *  String
+     */
     @ColumnInfo(name = "pad_name")
     private String padName;
 
+    /**
+     *  Agency Name
+     *  String
+     */
     @ColumnInfo(name = "agency_name")
     private String agencyName;
 
-    // Mission details
+    /**
+     *  Mission Details
+     *  String
+     */
     @ColumnInfo(name = "mission_details")
     private String missionDetails;
 
-    // Hashtag
+    /**
+     *  Hashtag
+     *  String
+     *  Note: will return "null" if unknown to us
+     */
     @ColumnInfo(name = "hash_tag")
     private String hashTag;
 
