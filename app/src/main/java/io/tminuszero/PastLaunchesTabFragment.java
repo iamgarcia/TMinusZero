@@ -28,11 +28,11 @@ import java.util.ArrayList;
 
 import io.tminuszero.api.Launch;
 
-public class FollowedLaunchesTabFragment extends Fragment {
+public class PastLaunchesTabFragment extends Fragment {
 
     private ArrayList<Launch> followedLaunchList;
     private RecyclerView mRecyclerView;
-    private FollowedLaunchesRVAdapter mRecyclerViewAdapter;
+    private PastLaunchesRVAdapter mRecyclerViewAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private RequestQueue mQueue;
 
@@ -151,7 +151,7 @@ public class FollowedLaunchesTabFragment extends Fragment {
                         followedLaunchList.get(i).configLocation(locationPadName, locationWikiURL, locationMapURL, locationSite, locationCountryCode, locationLatitude, locationLongitude);
                     }
 
-                    mRecyclerViewAdapter = new FollowedLaunchesRVAdapter(followedLaunchList);
+                    mRecyclerViewAdapter = new PastLaunchesRVAdapter(followedLaunchList);
                     mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
                     // TODO: Make a global variable class so I can store data to it and that use across the app.

@@ -90,4 +90,12 @@ public class UpcomingLaunchesRVAdapter extends RecyclerView.Adapter<UpcomingLaun
         super.onAttachedToRecyclerView(recyclerView);
     }
 
+    public int setColorGreen() {
+        return Color.parseColor("#4CAF50");
+    }
+
+    public int setColorRed() {
+        return Color.parseColor("#FF0000");
+    }
+
 }
