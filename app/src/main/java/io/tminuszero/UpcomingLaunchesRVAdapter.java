@@ -40,11 +40,18 @@ public class UpcomingLaunchesRVAdapter extends RecyclerView.Adapter<UpcomingLaun
         int green = Color.parseColor("#4CAF50");
         int red = Color.parseColor("#FF0000");
 
-        // TODO: add this back in
-        /*
-        if(launch.flightStatus.getStatus() == 1) launchViewHolder.launchStatus.setColorFilter(green);
-        if(launch.flightStatus.getStatus() == 2) launchViewHolder.launchStatus.setColorFilter(red);
-        */
+        switch(entity.getFlightStatus()) {
+            case 1:
+                launchViewHolder.launchStatus.setColorFilter(green);
+                break;
+
+            case 2:
+                launchViewHolder.launchStatus.setColorFilter(red);
+                break;
+
+            default:
+                break;
+        }
 
         launchViewHolder.launchVehicle.setText(entity.getRocketName());
         launchViewHolder.missionName.setText(entity.getMissionName());

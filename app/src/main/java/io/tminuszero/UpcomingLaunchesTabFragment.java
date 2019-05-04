@@ -124,12 +124,12 @@ public class UpcomingLaunchesTabFragment extends Fragment {
 
                         entity.setHashTag(launch.getString("hashtag"));
 
+                        // -1 == Not valid, 1 == Green, 2 == Red, 3 == Success, 4 == Failed
+                        entity.setFlightStatus(((launch.getInt("status") <= 0) || (launch.getInt("status") > 4)) ? -1 : launch.getInt("status"));
+                        entity.setFlightHoldReason(launch.getString("holdreason"));
+                        entity.setFlightFailReason(launch.getString("failreason"));
+
                         /*
-                        // FlightStatus Attributes
-                        // TODO: add to database
-                        int flightStatus = ((launch.getInt("status") <= 0) || (launch.getInt("status") > 4)) ? -1 : launch.getInt("status"); // -1 == Not valid, 1 == Green, 2 == Red, 3 == Success, 4 == Failed
-                        String flightHoldReason = (launch.getString("holdreason") == null) ? "" : launch.getString("holdreason");
-                        String flightFailReason = (launch.getString("failreason") == null) ? "" : launch.getString("failreason");
 
                         // Mission attributes
                         JSONObject mission;
