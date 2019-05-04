@@ -32,8 +32,8 @@ public class LaunchesFragment extends Fragment {
         mTabLayout = getView().findViewById(R.id.tabLayout);
 
         mTabAdapter = new LaunchesTabAdapter(getFragmentManager());
-        mTabAdapter.addFragment(new FollowedLaunchesTabFragment(), "Followed Launches");
         mTabAdapter.addFragment(new UpcomingLaunchesTabFragment(), "Upcoming Launches");
+        mTabAdapter.addFragment(new PastLaunchesTabFragment(), "Past Launches");
         mViewPager.setAdapter(mTabAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 

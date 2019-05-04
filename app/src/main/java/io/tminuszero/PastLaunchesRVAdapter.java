@@ -12,11 +12,11 @@ import java.util.ArrayList;
 
 import io.tminuszero.api.Launch;
 
-public class FollowedLaunchesRVAdapter extends RecyclerView.Adapter<FollowedLaunchesRVAdapter.LaunchViewHolder> {
+public class PastLaunchesRVAdapter extends RecyclerView.Adapter<PastLaunchesRVAdapter.LaunchViewHolder> {
 
     private ArrayList<Launch> followedLaunchList;
 
-    FollowedLaunchesRVAdapter(ArrayList<Launch> followedLaunchList){
+    PastLaunchesRVAdapter(ArrayList<Launch> followedLaunchList){
         this.followedLaunchList = followedLaunchList;
     }
 
