@@ -27,11 +27,12 @@ import java.util.ArrayList;
 
 import io.tminuszero.api.Launch;
 import io.tminuszero.db.LaunchRepository;
+import io.tminuszero.db.UpcomingLaunchEntity;
 
 
 public class UpcomingLaunchesTabFragment extends Fragment {
 
-    private ArrayList<Launch> upcomingLaunchList;
+    private ArrayList<UpcomingLaunchEntity> upcomingLaunchEntities;
     private RecyclerView mRecyclerView;
     private UpcomingLaunchesRVAdapter mRecyclerViewAdapter;
     private LinearLayoutManager mLinearLayoutManager;
@@ -55,7 +56,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        upcomingLaunchList = new ArrayList<>();
+        upcomingLaunchEntities = new ArrayList<>();
 
         mQueue = Volley.newRequestQueue(getContext());
         parseJSON();
@@ -81,7 +82,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                     JSONArray jsonArray = response.getJSONArray("launches");
 
                     for(int i = 0; i < itemCount; i++) {
-                        upcomingLaunchList.add(new Launch());
+                        UpcomingLaunchEntity entity = new UpcomingLaunchEntity();
 
                         JSONObject launch = jsonArray.getJSONObject(i);
 
@@ -90,22 +91,42 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         JSONObject lsp = launch.getJSONObject("lsp");
                         JSONObject rocket = launch.getJSONObject("rocket");
 
-                        JSONArray imageSizes = rocket.getJSONArray("imageSizes");
                         JSONArray pads = location.getJSONArray("pads");
                         JSONObject pad = pads.getJSONObject(0);
 
                         // Launch attributes
-                        String launchName = launch.getString("name");
-                        int launchID = launch.getInt("id");
-                        String launchNet = launch.getString("net");
-                        int launchTBDTime = launch.getInt("tbdtime");
-                        int launchTBDDate = launch.getInt("tbddate");
-                        int launchProbability = launch.getInt("probability");
+                        entity.setLaunchID(launch.getInt("id"));
+                        entity.setNet(launch.getString("net"));
+                        entity.setRocketName(rocket.getString("name"));
+                        entity.setProbability(launch.getInt("probability"));
 
-                        // Media
-                        String mediaHashTag = launch.getString("hashtag");
+                        entity.setLSPName(lsp.getString("name"));
+                        entity.setLocationName(location.getString("name"));
+                        entity.setPadName(pad.getString("name"));
 
+                        // Check if Launch has a mission array
+                        if(missions.length() > 0) {
+                            JSONObject mission = missions.getJSONObject(0);
+
+                            entity.setMissionName(mission.getString("name"));
+                            entity.setMissionDetails(mission.getString("description"));
+
+                            // Todo: Add mission type to database
+                            //if(mission.getString("typeName") != null) missionType = mission.getString("typeName");
+
+                            JSONArray agencies = mission.getJSONArray("agencies");
+                            if(agencies.length() > 0) {
+                                JSONObject agency = agencies.getJSONObject(0);
+                                entity.setAgencyName(agency.getString("name"));
+                            }
+
+                        }
+
+                        entity.setHashTag(launch.getString("hashtag"));
+
+                        /*
                         // FlightStatus Attributes
+                        // TODO: add to database
                         int flightStatus = ((launch.getInt("status") <= 0) || (launch.getInt("status") > 4)) ? -1 : launch.getInt("status"); // -1 == Not valid, 1 == Green, 2 == Red, 3 == Success, 4 == Failed
                         String flightHoldReason = (launch.getString("holdreason") == null) ? "" : launch.getString("holdreason");
                         String flightFailReason = (launch.getString("failreason") == null) ? "" : launch.getString("failreason");
@@ -114,77 +135,38 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         JSONObject mission;
                         String missionName = "";
                         String missionDescription = "";
+                        // Todo: Add mission type to database
                         String missionType = "";
                         String agencyName = "";
-                        if(missions.length() > 0) {
-                            mission = missions.getJSONObject(0);
-
-                            if(mission.getString("name") != null) missionName = mission.getString("name");
-                            if(mission.getString("description") != null) missionDescription = mission.getString("description");
-                            if(mission.getString("typeName") != null) missionType = mission.getString("typeName");
-
-                            // TODO: The docs says agencies should return an array however in this
-                            //       request, it returns a null object, not an array
-
-                            JSONArray agencies = mission.getJSONArray("agencies");
-                            if(agencies.length() > 0) {
-                                JSONObject agency = agencies.getJSONObject(0);
-                                agencyName = agency.getString("name");
-                            }
-
-                        }
 
                         // Launch Service Provider (LSP) attributes
                         String lspName = (lsp.getString("name") == null) ? "" : lsp.getString("name");
-                        String lspNameAbbrev = (lsp.getString("abbrev") == null) ? "" : lsp.getString("abbrev");
-                        String lspCountryCode = (lsp.getString("countryCode") == null) ? "" : lsp.getString("countryCode");
-                        String lspWikiURL = (lsp.getString("wikiURL") == null) ? "" : lsp.getString("wikiURL");
 
                         // Rocket attributes
                         String rocketName = (rocket.getString("name") == null) ? "" : rocket.getString("name");
+                        // Todo: Add to database
                         String rocketConfig = (rocket.getString("configuration") == null) ? "" : rocket.getString("configuration");
                         String rocketFamily = (rocket.getString("familyname") == null) ? "" : rocket.getString("familyname");
-                        String rocketWikiURL = (rocket.getString("wikiURL") == null) ? "" : rocket.getString("wikiURL");;
-                        String rocketImageURL = (rocket.getString("imageURL") == null) ? "" : rocket.getString("imageURL");
-
-                        ArrayList<Integer> rocketImageSizes = new ArrayList<>();
-
-                        if(imageSizes.length() == 0) {
-                            Log.d("Critical", "imageSizes array is empty");
-                        } else {
-                            for(int j = 0; j < imageSizes.length(); j++) {
-                                rocketImageSizes.add(imageSizes.getInt(j));
-                            }
-                        }
 
                         // Location attributes
                         String locationName = (location.getString("name") == null) ? "" : location.getString("name");
-                        String locationCountryCode = (location.getString("countryCode") == null) ? "" : location.getString("countryCode");
 
                         // Pad attributes
                         String padsName = (pad.getString("name") == null) ? "" : pad.getString("name");
+
                         String padsWikiURL = (pad.getString("wikiURL") == null) ? "" : pad.getString("wikiURL");
                         String padsMapURL = (pad.getString("mapURL") == null) ? "" : pad.getString("mapURL");
                         String padsLatitude = (pad.getString("latitude") == null) ? "" : pad.getString("latitude");
                         String padsLongitude = (pad.getString("longitude") == null) ? "" : pad.getString("longitude");
-
-                        // Configure the launch object at index i
-                        upcomingLaunchList.get(i).configLaunch(launchName, launchNet, launchTBDTime, launchTBDDate, launchProbability, launchID);
-                        upcomingLaunchList.get(i).configFlightStatus(flightStatus, "", "");
-                        upcomingLaunchList.get(i).configLSP(lspName, lspNameAbbrev, lspCountryCode, lspWikiURL);
-                        upcomingLaunchList.get(i).configMission(missionName, missionDescription, missionType);
-                        upcomingLaunchList.get(i).configRocket(rocketName, rocketConfig, rocketFamily, rocketWikiURL, rocketImageURL, rocketImageSizes);
-                        upcomingLaunchList.get(i).configLocation(locationName, locationCountryCode, padsName, padsWikiURL, padsMapURL, padsLatitude, padsLongitude);
+                        */
 
                         Log.d("DATABASE", "INSERTING DATABASE");
 
-                        // TODO: Replace agencyName with actual agencyName.
-                        launchRepository.insertLaunch(launchID, launchNet, rocketName,
-                                missionName, launchProbability, lspName,
-                                locationName, padsName, agencyName, missionDescription, mediaHashTag);
+                        upcomingLaunchEntities.add(entity);
+                        launchRepository.insertLaunch(entity);
                     }
 
-                    mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchList);
+                    mRecyclerViewAdapter = new UpcomingLaunchesRVAdapter(upcomingLaunchEntities);
                     mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
                 } catch(JSONException e) {

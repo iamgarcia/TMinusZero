@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 @Entity
-public class LaunchEntity implements Serializable {
+public class UpcomingLaunchEntity implements Serializable {
 
     @PrimaryKey
     private int launchID;
@@ -84,6 +84,48 @@ public class LaunchEntity implements Serializable {
      */
     @ColumnInfo(name = "hash_tag")
     private String hashTag;
+
+    public UpcomingLaunchEntity() {
+        setAll(0, null, null,
+                null, 0, null,
+                null, null, null,
+                null, null);
+    }
+
+    public void setAll(int launchID, String net, String rocketName,
+                  String missionName, int probability, String LSPName,
+                  String locationName, String padName, String agencyName,
+                  String missionDetails, String hashTag) {
+        this.launchID = launchID;
+        this.net = net;
+        this.rocketName = rocketName;
+        this.missionName = missionName;
+        this.probability = probability;
+        this.LSPName = LSPName;
+        this.locationName = locationName;
+        this.padName = padName;
+        this.agencyName = agencyName;
+        this.missionDetails = missionDetails;
+        this.hashTag = hashTag;
+    }
+
+    /*
+    public UpcomingLaunchEntity(int launchID, String net, String rocketName,
+                                String missionName, int probability, String LSPName,
+                                String locationName, String padName, String agencyName,
+                                String missionDetails, String hashTag) {
+        this.launchID = launchID;
+        this.net = net;
+        this.rocketName = rocketName;
+        this.missionName = missionName;
+        this.probability = probability;
+        this.LSPName = LSPName;
+        this.locationName = locationName;
+        this.padName = padName;
+        this.agencyName = agencyName;
+        this.missionDetails = missionDetails;
+        this.hashTag = hashTag;
+    }*/
 
     public String getHashTag() {
         return hashTag;
