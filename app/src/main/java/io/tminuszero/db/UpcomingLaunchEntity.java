@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 @Entity
-public class LaunchEntity implements Serializable {
+public class UpcomingLaunchEntity implements Serializable {
 
     @PrimaryKey
     private int launchID;
@@ -84,6 +84,75 @@ public class LaunchEntity implements Serializable {
      */
     @ColumnInfo(name = "hash_tag")
     private String hashTag;
+
+    /**
+     * Flight Status
+     * Int
+     * Note: (1 Green, 2 Red, 3 Success, 4 Failed)
+     */
+    @ColumnInfo(name = "flight_status")
+    private int flightStatus;
+
+    /**
+     * Flight Hold Reason
+     * String
+     */
+    @ColumnInfo(name = "flight_hold_reason")
+    private String flightHoldReason;
+
+    /**
+     * Flight Fail Reason
+     * String
+     */
+    @ColumnInfo(name = "flight_fail_reason")
+    private String flightFailReason;
+
+    public UpcomingLaunchEntity() {
+        setAll(0, null, null,
+                null, 0, null,
+                null, null, null,
+                null, null, 0,
+                null, null);
+    }
+
+    public void setAll(int launchID, String net, String rocketName,
+                  String missionName, int probability, String LSPName,
+                  String locationName, String padName, String agencyName,
+                  String missionDetails, String hashTag, int flightStatus,
+                       String flightHoldReason, String flightFailReason) {
+        this.launchID = launchID;
+        this.net = net;
+        this.rocketName = rocketName;
+        this.missionName = missionName;
+        this.probability = probability;
+        this.LSPName = LSPName;
+        this.locationName = locationName;
+        this.padName = padName;
+        this.agencyName = agencyName;
+        this.missionDetails = missionDetails;
+        this.hashTag = hashTag;
+        this.flightStatus = flightStatus;
+        this.flightHoldReason = flightHoldReason;
+        this.flightFailReason = flightFailReason;
+    }
+
+    /*
+    public UpcomingLaunchEntity(int launchID, String net, String rocketName,
+                                String missionName, int probability, String LSPName,
+                                String locationName, String padName, String agencyName,
+                                String missionDetails, String hashTag) {
+        this.launchID = launchID;
+        this.net = net;
+        this.rocketName = rocketName;
+        this.missionName = missionName;
+        this.probability = probability;
+        this.LSPName = LSPName;
+        this.locationName = locationName;
+        this.padName = padName;
+        this.agencyName = agencyName;
+        this.missionDetails = missionDetails;
+        this.hashTag = hashTag;
+    }*/
 
     public String getHashTag() {
         return hashTag;
@@ -172,4 +241,28 @@ public class LaunchEntity implements Serializable {
     public void setMissionDetails(String missionDetails) {
         this.missionDetails = missionDetails;
     }
+    public int getFlightStatus() {
+        return flightStatus;
+    }
+
+    public void setFlightStatus(int flightStatus) {
+        this.flightStatus = flightStatus;
+    }
+
+    public String getFlightHoldReason() {
+        return flightHoldReason;
+    }
+
+    public void setFlightHoldReason(String flightHoldReason) {
+        this.flightHoldReason = flightHoldReason;
+    }
+
+    public String getFlightFailReason() {
+        return flightFailReason;
+    }
+
+    public void setFlightFailReason(String flightFailReason) {
+        this.flightFailReason = flightFailReason;
+    }
+
 }

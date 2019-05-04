@@ -16,13 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import io.tminuszero.api.Launch;
+import io.tminuszero.db.UpcomingLaunchEntity;
 
 public class UpcomingLaunchesRVAdapter extends RecyclerView.Adapter<UpcomingLaunchesRVAdapter.LaunchViewHolder> {
 
-    private ArrayList<Launch> upcomingLaunchList;
+    private ArrayList<UpcomingLaunchEntity> upcomingLaunchEntities;
 
-    UpcomingLaunchesRVAdapter(ArrayList<Launch> upcomingLaunchList){
-        this.upcomingLaunchList = upcomingLaunchList;
+    UpcomingLaunchesRVAdapter(ArrayList<UpcomingLaunchEntity> upcomingLaunchEntities){
+        this.upcomingLaunchEntities = upcomingLaunchEntities;
     }
 
     @NonNull
@@ -34,21 +35,34 @@ public class UpcomingLaunchesRVAdapter extends RecyclerView.Adapter<UpcomingLaun
 
     @Override
     public void onBindViewHolder(LaunchViewHolder launchViewHolder, int i) {
-        Launch launch = upcomingLaunchList.get(i);
+        UpcomingLaunchEntity entity = upcomingLaunchEntities.get(i);
 
-        if(launch.flightStatus.getStatus() == 1) launchViewHolder.launchStatus.setColorFilter(setColorGreen());
-        if(launch.flightStatus.getStatus() == 2) launchViewHolder.launchStatus.setColorFilter(setColorRed());
+        int green = Color.parseColor("#4CAF50");
+        int red = Color.parseColor("#FF0000");
 
-        launchViewHolder.launchVehicle.setText(launch.rocket.getName());
-        launchViewHolder.missionName.setText(launch.mission.getName());
+        switch(entity.getFlightStatus()) {
+            case 1:
+                launchViewHolder.launchStatus.setColorFilter(green);
+                break;
+
+            case 2:
+                launchViewHolder.launchStatus.setColorFilter(red);
+                break;
+
+            default:
+                break;
+        }
+
+        launchViewHolder.launchVehicle.setText(entity.getRocketName());
+        launchViewHolder.missionName.setText(entity.getMissionName());
 
         // TODO: Find a better way to do this.
-        launchViewHolder.rocketID = launch.getLaunchID();
+        launchViewHolder.rocketID = entity.getLaunchID();
     }
 
     @Override
     public int getItemCount() {
-        return  (upcomingLaunchList != null) ? upcomingLaunchList.size() : 0;
+        return  (upcomingLaunchEntities != null) ? upcomingLaunchEntities.size() : 0;
     }
 
     public static class LaunchViewHolder extends RecyclerView.ViewHolder {

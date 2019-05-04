@@ -12,20 +12,20 @@ import java.util.List;
 @Dao
 public interface LaunchDao {
     @Insert
-    Long insert(LaunchEntity launch);
+    Long insert(UpcomingLaunchEntity launch);
 
-    @Query("SELECT * FROM LaunchEntity")
-    LiveData<List<LaunchEntity>> fetchAllLaunches();
+    @Query("SELECT * FROM UpcomingLaunchEntity")
+    LiveData<List<UpcomingLaunchEntity>> fetchAllLaunches();
 
-    @Query("SELECT * FROM LaunchEntity WHERE launchID =:launchID")
-    LaunchEntity getLaunchEntity(int launchID);
+    @Query("SELECT * FROM UpcomingLaunchEntity WHERE launchID =:launchID")
+    UpcomingLaunchEntity getLaunchEntity(int launchID);
 
-    @Query("DELETE FROM launchentity")
+    @Query("DELETE FROM UpcomingLaunchEntity")
     void deleteAll();
 
     @Update
-    void updateLaunchEntity(LaunchEntity launchEntity);
+    void updateLaunchEntity(UpcomingLaunchEntity upcomingLaunchEntity);
 
     @Delete
-    void delete(LaunchEntity launch);
+    void delete(UpcomingLaunchEntity launch);
 }

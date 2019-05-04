@@ -22,7 +22,7 @@ public class LaunchRepository {
                              String missionName, int probability, String LSPName,
                              String locationName, String padName, String agencyName,
                              String missionDetails, String hashTag) {
-        LaunchEntity launch = new LaunchEntity();
+        UpcomingLaunchEntity launch = new UpcomingLaunchEntity();
 
         launch.setLaunchID(launchID);
         launch.setNet(net);
@@ -39,7 +39,7 @@ public class LaunchRepository {
         insertLaunch(launch);
     }
 
-    public void insertLaunch(final LaunchEntity entity) {
+    public void insertLaunch(final UpcomingLaunchEntity entity) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -50,7 +50,7 @@ public class LaunchRepository {
         }.execute();
     }
 
-    public void updateLaunchEntity(final LaunchEntity launch) {
+    public void updateLaunchEntity(final UpcomingLaunchEntity launch) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -60,15 +60,15 @@ public class LaunchRepository {
         }.execute();
     }
 
-    public LaunchEntity getLaunchEntity(final int launchID) {
-        LaunchEntity temp = null;
+    public UpcomingLaunchEntity getLaunchEntity(final int launchID) {
+        UpcomingLaunchEntity temp = null;
 
         // TODO: Figure out how this works?
         try {
             temp =
-                    new AsyncTask<Void, Void, LaunchEntity>() {
+                    new AsyncTask<Void, Void, UpcomingLaunchEntity>() {
                         @Override
-                        protected LaunchEntity doInBackground(Void... voids) {
+                        protected UpcomingLaunchEntity doInBackground(Void... voids) {
                             return launchDatabase.launchDao().getLaunchEntity(launchID);
                         }
                     }.execute().get();
@@ -80,7 +80,7 @@ public class LaunchRepository {
         return temp;
     }
 
-    public LiveData<List<LaunchEntity>> getLaunch() {
+    public LiveData<List<UpcomingLaunchEntity>> getLaunch() {
         return launchDatabase.launchDao().fetchAllLaunches();
     }
 
