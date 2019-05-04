@@ -67,4 +67,14 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textViewTitle);
         textView.setText(title);
     }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 }
