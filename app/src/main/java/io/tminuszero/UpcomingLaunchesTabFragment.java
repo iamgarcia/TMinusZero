@@ -113,12 +113,17 @@ public class UpcomingLaunchesTabFragment extends Fragment {
 
                             // Todo: Add mission type to database
                             //if(mission.getString("typeName") != null) missionType = mission.getString("typeName");
-
-                            JSONArray agencies = mission.getJSONArray("agencies");
-                            if(agencies.length() > 0) {
-                                JSONObject agency = agencies.getJSONObject(0);
-                                entity.setAgencyName(agency.getString("name"));
+                            
+                            try {
+                                JSONArray agencies = mission.getJSONArray("agencies");
+                                if (agencies.length() > 0) {
+                                    JSONObject agency = agencies.getJSONObject(0);
+                                    entity.setAgencyName(agency.getString("name"));
+                                }
+                            } catch(JSONException e) {
+                                entity.setAgencyName("ERROR, NO AGENCY");
                             }
+
 
                         }
 
