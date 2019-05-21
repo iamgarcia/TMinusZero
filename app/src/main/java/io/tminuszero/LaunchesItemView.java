@@ -1,11 +1,15 @@
 package io.tminuszero;
 
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,6 +44,10 @@ public class LaunchesItemView extends Fragment {
             ((MainActivity) getActivity()).setTitle(upcomingLaunchEntity.getHashTag());
 
         View rootView = inflater.inflate(R.layout.fragment_launch_view, container, false);
+
+        // Set background to the rocket
+        ImageView rocketImage = rootView.findViewById(R.id.rocketImage);
+        Picasso.get().load(upcomingLaunchEntity.getRocketImageURL()).placeholder(R.drawable.placeholder).into(rocketImage);
 
         // Set rocket name
         final TextView rocketName = (TextView) rootView.findViewById(R.id.rocketName);
