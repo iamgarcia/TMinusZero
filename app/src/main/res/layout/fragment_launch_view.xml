@@ -24,7 +24,7 @@
                 <ImageView
                     android:id="@+id/rocketImage"
                     android:layout_width="wrap_content"
-                    android:layout_height="258dp"
+                    android:layout_height="300dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="0dp"
