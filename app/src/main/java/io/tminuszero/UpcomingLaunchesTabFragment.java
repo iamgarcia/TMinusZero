@@ -98,7 +98,14 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         // Launch attributes
                         entity.setLaunchID(launch.getInt("id"));
                         entity.setNet(launch.getString("net"));
-                        entity.setRocketName(rocket.getString("name"));
+
+                        // Ignore launch if rocket name doesn't exist.
+                        if(! (rocket.getString("name").isEmpty()) || rocket.getString("name") != null) {
+                            entity.setRocketName(rocket.getString("name"));
+                        } else {
+                            continue;
+                        }
+
                         entity.setProbability(launch.getInt("probability"));
 
                         entity.setLSPName(lsp.getString("name"));
