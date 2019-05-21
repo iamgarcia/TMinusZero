@@ -123,11 +123,10 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                                 }
                             } catch(JSONException e) {
                                 entity.setAgencyName("Agency not yet known");
-                            } else {
-                                continue;
                             }
 
-
+                        } else {
+                            continue;
                         }
 
                         entity.setHashTag(launch.getString("hashtag"));
