@@ -143,8 +143,10 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                         entity.setFlightHoldReason(launch.getString("holdreason"));
                         entity.setFlightFailReason(launch.getString("failreason"));
 
-                        /*
 
+                        entity.setRocketImageURL(rocket.getString("imageURL"));
+
+                        /*
                         // Mission attributes
                         JSONObject mission;
                         String missionName = "";

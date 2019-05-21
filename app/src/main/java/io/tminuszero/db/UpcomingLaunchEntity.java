@@ -107,19 +107,27 @@ public class UpcomingLaunchEntity implements Serializable {
     @ColumnInfo(name = "flight_fail_reason")
     private String flightFailReason;
 
+    /**
+     * Rocket Image URL
+     * String
+     */
+    @ColumnInfo(name = "rocket_image_url")
+    private String rocketImageURL;
+
     public UpcomingLaunchEntity() {
         setAll(0, null, null,
                 null, 0, null,
                 null, null, null,
                 null, null, 0,
-                null, null);
+                null, null, null);
     }
 
     public void setAll(int launchID, String net, String rocketName,
                   String missionName, int probability, String LSPName,
                   String locationName, String padName, String agencyName,
                   String missionDetails, String hashTag, int flightStatus,
-                       String flightHoldReason, String flightFailReason) {
+                  String flightHoldReason, String flightFailReason, String rocketImageURL) {
+
         this.launchID = launchID;
         this.net = net;
         this.rocketName = rocketName;
@@ -134,6 +142,7 @@ public class UpcomingLaunchEntity implements Serializable {
         this.flightStatus = flightStatus;
         this.flightHoldReason = flightHoldReason;
         this.flightFailReason = flightFailReason;
+        this.rocketImageURL = rocketImageURL;
     }
 
     /*
@@ -265,4 +274,11 @@ public class UpcomingLaunchEntity implements Serializable {
         this.flightFailReason = flightFailReason;
     }
 
+    public String getRocketImageURL() {
+        return rocketImageURL;
+    }
+
+    public void setRocketImageURL(String rocketImageURL) {
+        this.rocketImageURL = rocketImageURL;
+    }
 }
