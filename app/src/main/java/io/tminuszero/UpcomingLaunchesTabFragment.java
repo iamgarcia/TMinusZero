@@ -88,6 +88,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
 
                         JSONObject location = launch.getJSONObject("location");
                         JSONArray missions = launch.getJSONArray("missions");
+
                         JSONObject lsp = launch.getJSONObject("lsp");
                         JSONObject rocket = launch.getJSONObject("rocket");
 
@@ -113,7 +114,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
 
                             // Todo: Add mission type to database
                             //if(mission.getString("typeName") != null) missionType = mission.getString("typeName");
-                            
+
                             try {
                                 JSONArray agencies = mission.getJSONArray("agencies");
                                 if (agencies.length() > 0) {
@@ -123,8 +124,8 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                             } catch(JSONException e) {
                                 entity.setAgencyName("ERROR, NO AGENCY");
                             }
-
-
+                        } else {
+                            continue;
                         }
 
                         entity.setHashTag(launch.getString("hashtag"));
