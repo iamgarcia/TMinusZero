@@ -85,7 +85,7 @@ public class UpcomingLaunchesRVAdapter extends RecyclerView.Adapter<UpcomingLaun
                 public void onClick(View v) {
                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
                     Fragment fragment = new LaunchesItemView(rocketID, v.getContext());
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
                 }
             });
         }
