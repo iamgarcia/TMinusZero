@@ -112,7 +112,7 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                             entity.setMissionDetails(mission.getString("description"));
 
                             // Todo: Add mission type to database
-                            //if(mission.getString("typeName") != null) missionType = mission.getString("typeName");
+                            //if((mission.getString("typeName") != null) || (!mission.getString("typeName").equals(""))) entity.setMissionType(mission.getString("missionType"));
                             
                             try {
                                 JSONArray agencies = mission.getJSONArray("agencies");
@@ -121,9 +121,8 @@ public class UpcomingLaunchesTabFragment extends Fragment {
                                     entity.setAgencyName(agency.getString("name"));
                                 }
                             } catch(JSONException e) {
-                                entity.setAgencyName("ERROR, NO AGENCY");
+                                entity.setAgencyName("Agency not yet known");
                             }
-
 
                         }
 
