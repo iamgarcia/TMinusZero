@@ -2,13 +2,95 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/activityBackground">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Settings Fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/generalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="General"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/timeZoneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/generalText"
+                android:layout_marginTop="10sp"
+                android:text="Set time zone automatic"
+                android:textColor="@color/black"
+                android:textSize="17sp"/>
+
+            <Switch
+                android:id="@+id/timeZoneSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/timeZoneText"
+                android:layout_alignRight="@+id/timeZoneText"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentRight="true"
+                android:checked="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/darkModeText"
+                android:layout_below="@+id/timeZoneText"
+                android:paddingTop="10sp"
+                android:text="Dark mode"
+                android:textColor="@color/black"
+                android:textSize="17sp"/>
+
+            <Switch
+            android:id="@+id/darkModeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/darkModeText"
+            android:layout_alignRight="@+id/darkModeText"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
+            android:checked="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sendFeedback"
+                android:layout_below="@+id/darkModeText"
+                android:paddingTop="10sp"
+                android:text="Send feedback"
+                android:textColor="@color/black"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/privacyText"
+                android:layout_below="@+id/sendFeedback"
+                android:paddingTop="10sp"
+                android:text="Privacy &amp; licenses"
+                android:textColor="@color/black"
+                android:textSize="17sp"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
